@@ -73,7 +73,7 @@ contract Token {
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        require(_value <= balanceOf[_from], "Insufficeint Token for transfer");
+        require(_value <= balanceOf[_from], "Insufficient Token for transfer");
         require(
             _value <= allowance[_from][msg.sender],
             "Transfer Can't be Done"
