@@ -5,11 +5,13 @@ import "hardhat/console.sol";
 import "./Token.sol";
 
 contract Exchange {
+    // Track fee account
     address public feeAccount;
     uint256 public feePercent;
     mapping(address => mapping(address => uint256)) public tokens;
     mapping(uint256 => _Order) public orders;
     uint256 public orderCount;
+    mapping(uint256 => bool) public orderCancelled;
 
     event Deposit(address token, address user, uint256 amount, uint256 balance);
     event Withdraw(
@@ -20,6 +22,15 @@ contract Exchange {
     );
 
     event Order(
+        uint256 id,
+        address user,
+        address tokenGet,
+        uint256 amountGet,
+        address tokenGive,
+        uint256 amountGive,
+        uint256 timestamp
+    );
+    event Cancel(
         uint256 id,
         address user,
         address tokenGet,
@@ -84,7 +95,7 @@ contract Exchange {
     ) public {
         require(
             balanceOf(_tokenGive, msg.sender) >= _amountGive,
-            "Insufficient Token for Order"
+            "Insufficient Token to make Order"
         );
         orderCount += 1;
         orders[orderCount] = _Order(
@@ -107,9 +118,31 @@ contract Exchange {
             block.timestamp
         );
     }
+
+    // Cancel Order
+    function cancelOrder(uint256 _id) public {
+        _Order storage _order = orders[_id];
+
+        orderCancelled[_id] = true;
+
+        require(
+            address(_order.user) == msg.sender,
+            "Unauthorized cancellation"
+        );
+        require(_order.id == _id, "Order doesn't exist");
+
+        emit Cancel(
+            _id,
+            msg.sender,
+            _order.tokenGet,
+            _order.amountGet,
+            _order.tokenGive,
+            _order.amountGive,
+            block.timestamp
+        );
+    }
 }
 
-// Cancel Order
-
 // Fill Orders
+
 // Charge Fees
