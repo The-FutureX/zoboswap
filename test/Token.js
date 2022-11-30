@@ -10,7 +10,7 @@ describe("Token", () => {
 
   beforeEach(async () => {
     const Token = await ethers.getContractFactory("Token");
-    token = await Token.deploy("ZoboSwap", "ZSP", "1000000");
+    token = await Token.deploy("ZoboCoin", "zBC", "1000000");
 
     accounts = await ethers.getSigners();
     deployer = accounts[0];
@@ -19,8 +19,8 @@ describe("Token", () => {
   });
 
   describe("Deployment", () => {
-    const name = "ZoboSwap";
-    const symbol = "ZSP";
+    const name = "ZoboCoin";
+    const symbol = "zBC";
     const decimals = "18";
     const totalSupply = tokens("1000000");
 
