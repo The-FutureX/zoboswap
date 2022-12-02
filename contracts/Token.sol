@@ -38,7 +38,7 @@ contract Token {
         public
         returns (bool success)
     {
-        require(balanceOf[msg.sender] >= _value, "Oops, Insufficient balance");
+        require(balanceOf[msg.sender] >= _value, "Oops, Insufficient token");
 
         _transfer(msg.sender, _to, _value);
 

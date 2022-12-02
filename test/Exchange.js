@@ -325,7 +325,6 @@ describe("Exchange", () => {
         it("emits a Trade event", async () => {
           const event = result.events[0];
           const args = event.args;
-
           expect(event.event).to.equal("Trade");
           expect(args.id).to.equal(1);
           expect(args.user).to.equal(user2.address);
