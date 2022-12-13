@@ -1,4 +1,5 @@
 const config = require("../src/config.json");
+const { ethers } = require("hardhat");
 
 const tokens = (n) => {
   return ethers.utils.parseUnits(n.toString(), "ether");

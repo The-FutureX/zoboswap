@@ -142,6 +142,7 @@ describe("Exchange", () => {
   });
 
   describe("Checking Balances", () => {
+    // eslint-disable-next-line no-unused-vars
     let transaction, result;
     let amount = tokens(1);
 
@@ -155,6 +156,7 @@ describe("Exchange", () => {
         .depositToken(token1.address, amount);
       result = await transaction.wait();
     });
+
     it("returns user balance", async () => {
       expect(await exchange.balanceOf(token1.address, user1.address)).to.equal(
         amount
