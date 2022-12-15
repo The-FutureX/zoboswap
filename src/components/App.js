@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { ethers } from "ethers";
 import TOKEN_ABI from "../abis/Token.json";
-import "../App.css";
 import config from "../config.json";
 
 const App = () => {
