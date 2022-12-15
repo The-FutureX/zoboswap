@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { ethers } from "ethers";
+import TOKEN_ABI from "../abis/Token.json";
 import "../App.css";
+import config from "../config.json";
 
 const App = () => {
+  const loadBlockchainData = async () => {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    console.log(accounts[0]);
+
+    // Connect Ethers to Blockchain
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const { chainId } = await provider.getNetwork();
+    console.log(chainId);
+
+    // Token Smart Contract
+    const token = new ethers.Contract(
+      config[chainId].zoboCoin.address,
+      TOKEN_ABI,
+      provider
+    );
+    console.log(token.address);
+
+    const symbol = await token.symbol();
+    console.log(symbol);
+  };
+
+  useEffect(() => {
+    loadBlockchainData();
+  }, []);
+
   return (
     <div>
       {/* Navbar */}

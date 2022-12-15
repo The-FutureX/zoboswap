@@ -1,3 +1,5 @@
+const { ethers } = require("hardhat");
+
 async function main() {
   console.log(`Preparing deployment...\n`);
 
@@ -13,9 +15,9 @@ async function main() {
   );
 
   // Deploy contracts
-  const dapp = await Token.deploy("zoboCoin", "zBC", "1000000");
-  await dapp.deployed();
-  console.log(`zoboCoin Deployed to: ${dapp.address}`);
+  const zoboswap = await Token.deploy("zoboCoin", "zBC", "1000000");
+  await zoboswap.deployed();
+  console.log(`zoboCoin Deployed to: ${zoboswap.address}`);
 
   const mETH = await Token.deploy("mETH", "mETH", "1000000");
   await mETH.deployed();
