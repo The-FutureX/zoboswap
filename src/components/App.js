@@ -1,35 +1,33 @@
-import React, { useEffect } from "react";
-import { ethers } from "ethers";
-import TOKEN_ABI from "../abis/Token.json";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+//Internal Import
 import config from "../config.json";
+import {
+  loadAccount,
+  loadNetwork,
+  loadProvider,
+  loadToken,
+} from "../store/interactions";
 
 const App = () => {
+  const dispatch = useDispatch();
+
   const loadBlockchainData = async () => {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    console.log(accounts[0]);
+    // laod Account
+    await loadAccount(dispatch);
 
     // Connect Ethers to Blockchain
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const { chainId } = await provider.getNetwork();
-    console.log(chainId);
+    const provider = loadProvider(dispatch);
+    const chainId = await loadNetwork(provider, dispatch);
 
     // Token Smart Contract
-    const token = new ethers.Contract(
-      config[chainId].zoboCoin.address,
-      TOKEN_ABI,
-      provider
-    );
-    console.log(token.address);
-
-    const symbol = await token.symbol();
-    console.log(symbol);
+    await loadToken(provider, config[chainId].zoboCoin.address, dispatch);
   };
 
   useEffect(() => {
     loadBlockchainData();
-  }, []);
+  });
 
   return (
     <div>
