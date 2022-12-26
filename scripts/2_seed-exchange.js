@@ -19,11 +19,11 @@ async function main() {
   console.log("Using chainId:", chainId);
 
   // Fetch deployed tokens
-  const zoboCoin = await ethers.getContractAt(
+  const mZOBO = await ethers.getContractAt(
     "Token",
-    config[chainId].zoboCoin.address
+    config[chainId].mZOBO.address
   );
-  console.log(`zoboCoin Token fetched: ${zoboCoin.address}\n`);
+  console.log(`mZOBO Token fetched: ${mZOBO.address}\n`);
 
   const mETH = await ethers.getContractAt(
     "Token",
@@ -62,15 +62,15 @@ async function main() {
   const user2 = accounts[1];
   amount = tokens(10000);
 
-  //   user1 approves 10,000 zoboCoin
-  transaction = await zoboCoin.connect(user1).approve(exchange.address, amount);
+  //   user1 approves 10,000 mZOBO
+  transaction = await mZOBO.connect(user1).approve(exchange.address, amount);
   console.log(`Approved ${amount} tokens from ${user1.address}`);
   await transaction.wait();
 
-  // user1 deposits 10,000 zoboCoin
+  // user1 deposits 10,000 mZOBO
   transaction = await exchange
     .connect(user1)
-    .depositToken(zoboCoin.address, amount);
+    .depositToken(mZOBO.address, amount);
   await transaction.wait();
   console.log(`Deposited ${amount} Ether from ${user1.address}\n`);
 
@@ -91,7 +91,7 @@ async function main() {
   let orderId;
   transaction = await exchange
     .connect(user1)
-    .makeOrder(mETH.address, tokens(100), zoboCoin.address, tokens(5));
+    .makeOrder(mETH.address, tokens(100), mZOBO.address, tokens(5));
   result = await transaction.wait();
   console.log(`Made order from ${user1.address}`);
 
@@ -108,7 +108,7 @@ async function main() {
   // user 1 makes order
   transaction = await exchange
     .connect(user1)
-    .makeOrder(mETH.address, tokens(100), zoboCoin.address, tokens(10));
+    .makeOrder(mETH.address, tokens(100), mZOBO.address, tokens(10));
   result = await transaction.wait();
   console.log(`Made order from ${user1.address}`);
 
@@ -124,7 +124,7 @@ async function main() {
   // user 1 makes another order
   transaction = await exchange
     .connect(user1)
-    .makeOrder(mETH.address, tokens(100), zoboCoin.address, tokens(15));
+    .makeOrder(mETH.address, tokens(100), mZOBO.address, tokens(15));
   result = await transaction.wait();
   console.log(`Made order from ${user1.address}`);
 
@@ -140,7 +140,7 @@ async function main() {
   // user 1 makes final order
   transaction = await exchange
     .connect(user1)
-    .makeOrder(mETH.address, tokens(200), zoboCoin.address, tokens(25));
+    .makeOrder(mETH.address, tokens(200), mZOBO.address, tokens(25));
   result = await transaction.wait();
   console.log(`Made order from ${user1.address}`);
 
@@ -158,7 +158,7 @@ async function main() {
   for (let i = 1; i <= 10; i++) {
     transaction = await exchange
       .connect(user1)
-      .makeOrder(mETH.address, tokens(i * 10), zoboCoin.address, tokens(10));
+      .makeOrder(mETH.address, tokens(i * 10), mZOBO.address, tokens(10));
     await transaction.wait();
     result = await transaction.wait();
     console.log(`Make order from ${user1.address}`);
@@ -171,12 +171,7 @@ async function main() {
   for (let i = 1; i <= 10; i++) {
     transaction = await exchange
       .connect(user2)
-      .makeOrder(
-        zoboCoin.address,
-        tokens(i * 10),
-        mETH.address,
-        tokens(10 * i)
-      );
+      .makeOrder(mZOBO.address, tokens(i * 10), mETH.address, tokens(10 * i));
     result = await transaction.wait();
     console.log(`Make order from ${user2.address}`);
 

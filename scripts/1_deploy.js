@@ -15,9 +15,9 @@ async function main() {
   );
 
   // Deploy contracts
-  const zoboswap = await Token.deploy("zoboCoin", "zBC", "1000000");
+  const zoboswap = await Token.deploy("mZOBO", "mZOBO", "1000000");
   await zoboswap.deployed();
-  console.log(`zoboCoin Deployed to: ${zoboswap.address}`);
+  console.log(`mZOBO Deployed to: ${zoboswap.address}`);
 
   const mETH = await Token.deploy("mETH", "mETH", "1000000");
   await mETH.deployed();

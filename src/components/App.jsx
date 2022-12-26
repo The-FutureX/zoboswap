@@ -10,16 +10,17 @@ import {
   loadTokens,
   loadExchange,
 } from "../store/interactions";
+import Markets from "./Markets";
 import Navbar from "./Navbar";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const loadBlockchainData = async () => {
-    // Connect Ethers to Blockchain
+    // Connect Ethers to blockchain
     const provider = loadProvider(dispatch);
 
-    // Fetch current network's chainId (e.g hardhat: 31337, kovan: 42)
+    // Fetch current network's chainId (e.g. hardhat: 31337, kovan: 42)
     const chainId = await loadNetwork(provider, dispatch);
 
     // Reload page when network changes
@@ -27,15 +28,15 @@ const App = () => {
       window.location.reload();
     });
 
-    // Fetch/Laod account & balance from Metamask when changed
+    // Fetch current account & balance from Metamask when changed
     window.ethereum.on("accountsChanged", () => {
       loadAccount(provider, dispatch);
     });
 
     // Load token smart contracts
-    const zoboCoin = config[chainId].zoboCoin;
+    const mZOBO = config[chainId].mZOBO;
     const mETH = config[chainId].mETH;
-    await loadTokens(provider, [zoboCoin.address, mETH.address], dispatch);
+    await loadTokens(provider, [mZOBO.address, mETH.address], dispatch);
 
     // Load exchange smart contract
     const exchangeConfig = config[chainId].exchange;
@@ -52,7 +53,7 @@ const App = () => {
 
       <main className="exchange grid">
         <section className="exchange__section--left grid">
-          {/* Markets */}
+          <Markets />
 
           {/* Balance */}
 

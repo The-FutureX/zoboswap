@@ -13,7 +13,7 @@ describe("Exchange", () => {
     const Exchange = await ethers.getContractFactory("Exchange");
     const Token = await ethers.getContractFactory("Token");
 
-    token1 = await Token.deploy("ZoboCoin", "zBC", 1000000);
+    token1 = await Token.deploy("mZOBO", "mZOBO", 1000000);
     token2 = await Token.deploy("SuCoin", "sCN", 1000000);
 
     accounts = await ethers.getSigners();
