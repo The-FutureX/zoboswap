@@ -7,22 +7,31 @@ import {
   loadAccount,
   loadNetwork,
   loadProvider,
-  loadToken,
+  loadTokens,
+  loadExchange,
 } from "../store/interactions";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const loadBlockchainData = async () => {
-    // laod Account
-    await loadAccount(dispatch);
-
     // Connect Ethers to Blockchain
     const provider = loadProvider(dispatch);
+
+    // Fetch current network's chainId (e.g hardhat: 31337, kovan: 42)
     const chainId = await loadNetwork(provider, dispatch);
 
-    // Token Smart Contract
-    await loadToken(provider, config[chainId].zoboCoin.address, dispatch);
+    // Fetch/Laod account & balance from Metamask
+    await loadAccount(provider, dispatch);
+
+    // Load token smart contracts
+    const zoboCoin = config[chainId].zoboCoin;
+    const mETH = config[chainId].mETH;
+    await loadTokens(provider, [zoboCoin.address, mETH.address], dispatch);
+
+    // Load exchange smart contract
+    const exchangeConfig = config[chainId].exchange;
+    await loadExchange(provider, exchangeConfig.address, dispatch);
   };
 
   useEffect(() => {
