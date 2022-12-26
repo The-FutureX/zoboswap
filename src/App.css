@@ -17,6 +17,9 @@
   padding: 0;
 }
 
+.blue-clr {
+  color: var(--clr-blue);
+}
 /* ------------------------------------------------------ */
 
 html {
@@ -124,7 +127,7 @@ small {
 
 .exchange__header {
   background: var(--clr-primary);
-  height: 10vh;
+  height: 8vh;
 
   position: relative;
 }
