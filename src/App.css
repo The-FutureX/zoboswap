@@ -128,8 +128,8 @@ small {
 .exchange__header {
   background: var(--clr-primary);
   height: 8vh;
-
   position: relative;
+  z-index: 1;
 }
 
 .exchange__header small {
@@ -153,7 +153,6 @@ small {
 
 .exchange__header--brand {
   padding: 0.75em 2em;
-
   grid-column-start: 1;
   grid-column-end: 6;
 }

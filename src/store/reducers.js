@@ -72,10 +72,16 @@ const DEFAULT_EXCHANGE_STATE = {
   transaction: {
     isSuccessful: false,
   },
+  allOrders: {
+    loaded: false,
+    data: [],
+  },
   events: [],
 };
 
 export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
+  let index, data;
+
   switch (action.type) {
     case "EXCHANGE_LOADED":
       return {
@@ -84,7 +90,7 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
         contract: action.exchange,
       };
 
-    /* BALANCE CASES*/
+    /***************************Balance Cases**************************/
     case "EXCHANGE_TOKEN_1_BALANCE_LOADED":
       return {
         ...state,
@@ -96,18 +102,17 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
         balances: [...state.balances, action.balance],
       };
 
-    /***************TRANSFER CASES (DEPOSIT & WITHDRAWS)****************/
+    /************** TRANSFER CASES (DEPOSIT & WITHDRAWS) **************/
     case "TRANSFER_REQUEST":
       return {
         ...state,
-        transaction: {
+        trasnsaction: {
           transactionType: "Transfer",
           isPending: true,
           isSuccessful: false,
         },
         transferInProgress: true,
       };
-
     case "TRANSFER_SUCCESS":
       return {
         ...state,
@@ -119,7 +124,6 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
         transferInProgress: false,
         events: [action.event, ...state.events],
       };
-
     case "TRANSFER_FAIL":
       return {
         ...state,
@@ -130,6 +134,55 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
           isError: true,
         },
         transferInProgress: false,
+      };
+
+    /********************* MAKING ORDERS CASES ************************/
+
+    case "NEW_ORDER_REQUEST":
+      return {
+        ...state,
+        transaction: {
+          transactionType: "New Order",
+          isPending: true,
+          isSuccessful: false,
+        },
+      };
+
+    case "NEW_ORDER_SUCCESS":
+      // Prevent duplicate orders
+      index = state.allOrders.data.findIndex(
+        (order) => order.id === action.order.id
+      );
+
+      if (index === -1) {
+        data = [...state.allOrders.data, action.order];
+      } else {
+        data = state.allOrders.data;
+      }
+
+      return {
+        ...state,
+        allOrders: {
+          ...state.allOrders,
+          data,
+        },
+        transaction: {
+          transactionType: "New Order",
+          isPending: false,
+          isSuccessful: true,
+        },
+        events: [action.event, ...state.events],
+      };
+
+    case "NEW_ORDER_FAIL":
+      return {
+        ...state,
+        transaction: {
+          transactionType: "New Order",
+          isPending: false,
+          isSuccessful: false,
+          isError: true,
+        },
       };
 
     default:

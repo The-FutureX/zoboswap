@@ -1,20 +1,17 @@
 import { ethers } from "ethers";
 import TOKEN_ABI from "../abis/Token.json";
 import EXCHANGE_ABI from "../abis/Exchange.json";
-// import { provider } from "./reducers";
 
 export const loadProvider = (dispatch) => {
   const connection = new ethers.providers.Web3Provider(window.ethereum);
-
-  dispatch({ type: "PROVIDER_LOADED", connection: connection });
+  dispatch({ type: "PROVIDER_LOADED", connection });
 
   return connection;
 };
 
 export const loadNetwork = async (provider, dispatch) => {
   const { chainId } = await provider.getNetwork();
-
-  dispatch({ type: "NETWORK_LOADED", chainId: chainId });
+  dispatch({ type: "NETWORK_LOADED", chainId });
 
   return chainId;
 };
@@ -25,12 +22,12 @@ export const loadAccount = async (provider, dispatch) => {
   });
   const account = ethers.utils.getAddress(accounts[0]);
 
-  dispatch({ type: "ACCOUNT_LOADED", account: account });
+  dispatch({ type: "ACCOUNT_LOADED", account });
 
   let balance = await provider.getBalance(account);
   balance = ethers.utils.formatEther(balance);
 
-  dispatch({ type: "ETHER_BALANCE_LOADED", balance: balance });
+  dispatch({ type: "ETHER_BALANCE_LOADED", balance });
 
   return account;
 };
@@ -40,18 +37,18 @@ export const loadTokens = async (provider, addresses, dispatch) => {
 
   token = new ethers.Contract(addresses[0], TOKEN_ABI, provider);
   symbol = await token.symbol();
-  dispatch({ type: "TOKEN_1_LOADED", token: token, symbol: symbol });
+  dispatch({ type: "TOKEN_1_LOADED", token, symbol });
 
   token = new ethers.Contract(addresses[1], TOKEN_ABI, provider);
   symbol = await token.symbol();
-  dispatch({ type: "TOKEN_2_LOADED", token: token, symbol: symbol });
+  dispatch({ type: "TOKEN_2_LOADED", token, symbol });
 
   return token;
 };
 
 export const loadExchange = async (provider, address, dispatch) => {
   const exchange = new ethers.Contract(address, EXCHANGE_ABI, provider);
-  dispatch({ type: "EXCHANGE_LOADED", exchange: exchange });
+  dispatch({ type: "EXCHANGE_LOADED", exchange });
 
   return exchange;
 };
@@ -64,10 +61,26 @@ export const subscribeToEvents = (exchange, dispatch) => {
   exchange.on("Withdraw", (token, user, amount, balance, event) => {
     dispatch({ type: "TRANSFER_SUCCESS", event });
   });
+
+  exchange.on(
+    "Order",
+    (
+      id,
+      user,
+      tokenGet,
+      amountGet,
+      tokenGive,
+      amountGive,
+      timestamp,
+      event
+    ) => {
+      const order = event.args;
+      dispatch({ type: "NEW_ORDER_SUCCESS", order, event });
+    }
+  );
 };
 
 /*********LOAD USER BALANCES (WALLET & EXCHANGE BALANCES)**********/
-
 export const loadBalances = async (exchange, tokens, account, dispatch) => {
   let balance = ethers.utils.formatUnits(
     await tokens[0].balanceOf(account),
@@ -92,7 +105,6 @@ export const loadBalances = async (exchange, tokens, account, dispatch) => {
 };
 
 /****************TRANSFER TOKENS (DEPOSIT & WITHDRAWS******************/
-
 export const transferTokens = async (
   provider,
   exchange,
@@ -126,5 +138,63 @@ export const transferTokens = async (
     await transaction.wait();
   } catch (error) {
     dispatch({ type: "TRANSFER_FAIL" });
+  }
+};
+
+/********************** ORDERS (BUY & SELL) **************************/
+
+export const makeBuyOrder = async (
+  provider,
+  exchange,
+  tokens,
+  order,
+  dispatch
+) => {
+  const tokenGet = tokens[0].address;
+  const amountGet = ethers.utils.parseUnits(order.amount, 18);
+  const tokenGive = tokens[1].address;
+  const amountGive = ethers.utils.parseUnits(
+    (order.amount * order.price).toString(),
+    18
+  );
+
+  dispatch({ type: "NEW_ORDER_REQUEST" });
+
+  try {
+    const signer = await provider.getSigner();
+    const transaction = await exchange
+      .connect(signer)
+      .makeOrder(tokenGet, amountGet, tokenGive, amountGive);
+    await transaction.wait();
+  } catch (error) {
+    dispatch({ type: "NEW_ORDER_FAIL" });
+  }
+};
+
+export const makeSellOrder = async (
+  provider,
+  exchange,
+  tokens,
+  order,
+  dispatch
+) => {
+  const tokenGet = tokens[1].address;
+  const amountGet = ethers.utils.parseUnits(
+    (order.amount * order.price).toString(),
+    18
+  );
+  const tokenGive = tokens[0].address;
+  const amountGive = ethers.utils.parseUnits(order.amount, 18);
+
+  dispatch({ type: "NEW_ORDER_REQUEST" });
+
+  try {
+    const signer = await provider.getSigner();
+    const transaction = await exchange
+      .connect(signer)
+      .makeOrder(tokenGet, amountGet, tokenGive, amountGive);
+    await transaction.wait();
+  } catch (error) {
+    dispatch({ type: "NEW_ORDER_FAIL" });
   }
 };
