@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import Blockies from "react-blockies";
 
-// import logo from "../assets/logo.png";
+import logo from "../assets/logo.png";
 import eth from "../assets/eth.svg";
 
 import { loadAccount } from "../store/interactions";
@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <div className="exchange__header grid">
       <div className="exchange__header--brand flex">
-        {/* <img src={logo} className="logo" alt="DApp Logo"></img> */}
+        <img src={logo} className="logo" alt="DApp Logo"></img>
         <h1 className="blue-clr">Zobo Swap Exchange</h1>
       </div>
 

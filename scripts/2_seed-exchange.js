@@ -171,7 +171,7 @@ async function main() {
   for (let i = 1; i <= 10; i++) {
     transaction = await exchange
       .connect(user2)
-      .makeOrder(mZOBO.address, tokens(i * 10), mETH.address, tokens(10 * i));
+      .makeOrder(mZOBO.address, tokens(10), mETH.address, tokens(10 * i));
     result = await transaction.wait();
     console.log(`Make order from ${user2.address}`);
 

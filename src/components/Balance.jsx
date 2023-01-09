@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// import dapp from "../assets/dapp.svg";
+import zobo from "../assets/zobo.svg";
 import eth from "../assets/eth.svg";
 
 import { loadBalances, transferTokens } from "../store/interactions";
@@ -134,7 +134,7 @@ const Balance = () => {
           <p>
             <small>Token</small>
             <br />
-            {/* <img src={dapp} alt="Token Logo" /> */}
+            <img src={zobo} alt="Token Logo" />
             {symbols && symbols[0]}
           </p>
           <p>
