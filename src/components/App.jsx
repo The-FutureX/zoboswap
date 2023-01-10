@@ -19,6 +19,7 @@ import Order from "./Order";
 import OrderBook from "./OrderBook";
 import PriceChart from "./PriceChart";
 import Trades from "./Trades";
+import Transactions from "./Transactions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ const App = () => {
         <section className="exchange__section--right grid">
           <PriceChart />
 
-          {/* Transactions */}
+          <Transactions />
 
           <Trades />
 
