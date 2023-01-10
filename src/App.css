@@ -127,7 +127,7 @@ small {
 
 .exchange__header {
   background: var(--clr-primary);
-  height: 8vh;
+  height: 12vh;
   position: relative;
   z-index: 1;
 }
@@ -164,9 +164,7 @@ small {
 .exchange__header--networks {
   grid-column-start: 12;
   grid-column-end: 13;
-
   grid-row: 2;
-
   position: absolute;
   top: 24px;
   right: 64px;

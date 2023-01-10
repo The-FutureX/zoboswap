@@ -52,7 +52,7 @@ async function main() {
   // user1 transfer 10,000 mETH
   let transaction, result;
   transaction = await mETH.connect(sender).transfer(receiver.address, amount);
-  await transaction.wait();
+
   console.log(
     `Transferred ${amount} tokens from ${sender.address} to ${receiver.address}\n`
   );
@@ -64,8 +64,8 @@ async function main() {
 
   //   user1 approves 10,000 mZOBO
   transaction = await mZOBO.connect(user1).approve(exchange.address, amount);
-  console.log(`Approved ${amount} tokens from ${user1.address}`);
   await transaction.wait();
+  console.log(`Approved ${amount} tokens from ${user1.address}`);
 
   // user1 deposits 10,000 mZOBO
   transaction = await exchange
@@ -87,7 +87,7 @@ async function main() {
   console.log(`Deposited ${amount} Ether from ${user2.address}\n`);
 
   /***********************Seed a Cancelled Order************************/
-  // user 1 makes the order to get tokens
+  // User 1 makes order to get tokens
   let orderId;
   transaction = await exchange
     .connect(user1)
@@ -95,7 +95,7 @@ async function main() {
   result = await transaction.wait();
   console.log(`Made order from ${user1.address}`);
 
-  // user1 cancels order
+  // User 1 cancels order
   orderId = result.events[0].args.id;
   transaction = await exchange.connect(user1).cancelOrder(orderId);
   result = await transaction.wait();
@@ -124,7 +124,7 @@ async function main() {
   // user 1 makes another order
   transaction = await exchange
     .connect(user1)
-    .makeOrder(mETH.address, tokens(100), mZOBO.address, tokens(15));
+    .makeOrder(mETH.address, tokens(50), mZOBO.address, tokens(15));
   result = await transaction.wait();
   console.log(`Made order from ${user1.address}`);
 
@@ -158,22 +158,25 @@ async function main() {
   for (let i = 1; i <= 10; i++) {
     transaction = await exchange
       .connect(user1)
-      .makeOrder(mETH.address, tokens(i * 10), mZOBO.address, tokens(10));
-    await transaction.wait();
+      .makeOrder(mETH.address, tokens(10 * i), mZOBO.address, tokens(10));
     result = await transaction.wait();
-    console.log(`Make order from ${user1.address}`);
+
+    console.log(`Made order from ${user1.address}`);
 
     // Wait 1 second
     await wait(1);
   }
+
   console.log("\n");
+
   // User 2 makes 10 orders
   for (let i = 1; i <= 10; i++) {
     transaction = await exchange
       .connect(user2)
       .makeOrder(mZOBO.address, tokens(10), mETH.address, tokens(10 * i));
     result = await transaction.wait();
-    console.log(`Make order from ${user2.address}`);
+
+    console.log(`Made order from ${user2.address}`);
 
     // Wait 1 second
     await wait(1);
