@@ -5,7 +5,7 @@ import Chart from "react-apexcharts";
 import arrowDown from "../assets/down-arrow.svg";
 import arrowUp from "../assets/up-arrow.svg";
 
-import { options, series } from "./PriceChart.config";
+import { defaultSeries, options } from "./PriceChart.config";
 
 import { priceChartSelector } from "../store/selectors";
 
@@ -42,8 +42,8 @@ const PriceChart = () => {
         <Chart
           type="candlestick"
           options={options}
-          // series={priceChart ? priceChart.series : defaultSeries}
-          series={priceChart ? priceChart.series : series}
+          series={priceChart ? priceChart.series : defaultSeries}
+          // series={priceChart ? priceChart.series : series}
           // series={series}
           width="100%"
           height="100%"

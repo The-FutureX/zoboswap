@@ -305,6 +305,7 @@ const decorateOrderBookOrder = (order, tokens) => {
   };
 };
 
+/************************* PRICE CHART *****************************/
 export const priceChartSelector = createSelector(
   filledOrders,
   tokens,
