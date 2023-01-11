@@ -12,6 +12,7 @@ import {
   loadAllOrders,
   subscribeToEvents,
 } from "../store/interactions";
+import Alert from "./Alert";
 import Balance from "./Balance";
 import Markets from "./Markets";
 import Navbar from "./Navbar";
@@ -87,7 +88,7 @@ const App = () => {
           <OrderBook />
         </section>
       </main>
-      {/* Alert */}
+      <Alert />
     </div>
   );
 };
