@@ -40,7 +40,6 @@ export const myEventsSelector = createSelector(
   events,
   (account, events) => {
     events = events.filter((e) => e.args.user === account);
-    console.log("eventsselector", events);
     return events;
   }
 );
