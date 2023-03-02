@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 
 // Import Assets
-import sort from "../assets/sort.svg";
+import sort from "../public/assets/sort.svg";
 
 // Import Selectors
 import { orderBookSelector } from "../store/selectors";
 
 // Import Interactions
 import { fillOrder } from "../store/interactions";
+import Image from "next/image";
 
 const OrderBook = () => {
   const provider = useSelector((state) => state.provider.connection);
@@ -37,15 +38,15 @@ const OrderBook = () => {
               <tr>
                 <th>
                   {symbols && symbols[0]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
                 <th>
                   {symbols && symbols[0]}/{symbols && symbols[1]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
                 <th>
                   {symbols && symbols[1]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
               </tr>
             </thead>
@@ -79,20 +80,19 @@ const OrderBook = () => {
               <tr>
                 <th>
                   {symbols && symbols[0]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
                 <th>
                   {symbols && symbols[0]}/{symbols && symbols[1]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
                 <th>
                   {symbols && symbols[1]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
               </tr>
             </thead>
             <tbody>
-            
               {/* MAPPING OF BUY ORDERS... */}
 
               {orderBook &&

@@ -1,12 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import Blockies from "react-blockies";
 
-import logo from "../assets/logo.png";
-import eth from "../assets/eth.svg";
+import logo from "../public/assets/logo.png";
+import eth from "../public/assets/eth.svg";
 
 import { loadAccount } from "../store/interactions";
 
 import config from "../config.json";
+import Image from "next/image";
 
 const Navbar = () => {
   const provider = useSelector((state) => state.provider.connection);
@@ -30,12 +31,12 @@ const Navbar = () => {
   return (
     <div className="exchange__header grid">
       <div className="exchange__header--brand flex">
-        <img src={logo} className="logo" alt="DApp Logo"></img>
+        <Image src={logo} className="logo" alt="DApp Logo" />
         <h1 className="blue-clr">Zobo Swap Exchange</h1>
       </div>
 
       <div className="exchange__header--networks flex">
-        <img src={eth} alt="ETH Logo" className="Eth Logo" />
+        <Image src={eth} alt="ETH Logo" className="Eth Logo" />
 
         {chainId && (
           <select

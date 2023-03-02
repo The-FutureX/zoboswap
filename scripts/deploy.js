@@ -1,11 +1,11 @@
 const { ethers } = require("hardhat");
 
-async function main() {
+const main = async () => {
   console.log(`Preparing deployment...\n`);
 
-  // Fetch contract to deploy
-  const Token = await ethers.getContractFactory("Token");
-  const Exchange = await ethers.getContractFactory("Exchange");
+  // Get contracts
+  const ZoboToken = await ethers.getContractFactory("ZoboToken");
+  const ZoboExchange = await ethers.getContractFactory("ZoboExchange");
 
   // Fetch accounts
   const accounts = await ethers.getSigners();
@@ -15,26 +15,32 @@ async function main() {
   );
 
   // Deploy contracts
-  const zoboswap = await Token.deploy("mZOBO", "mZOBO", "1000000");
-  await zoboswap.deployed();
-  console.log(`mZOBO Deployed to: ${zoboswap.address}`);
+  const zoboToken = await ZoboToken.deploy("ZoboToken", "ZBT", 18, "1000000");
+  await zoboToken.deployed();
 
-  const mETH = await Token.deploy("mETH", "mETH", "1000000");
-  await mETH.deployed();
-  console.log(`mETH Deployed to: ${mETH.address}`);
+  console.log(`ZoboToken Deployed to: ${zoboToken.address}`);
 
-  const mDAI = await Token.deploy("mDAI", "mDAI", "1000000");
-  await mDAI.deployed();
-  console.log(`mDAI Deployed to: ${mDAI.address}`);
+  const siToken = await ZoboToken.deploy("SiToken", "SiT", 18, "1000000");
+  await siToken.deployed();
+  console.log(`SiToken Deployed to: ${siToken.address}`);
 
-  const exchange = await Exchange.deploy(accounts[1].address, 10);
-  await exchange.deployed();
-  console.log(`Exchange Deployed to: ${exchange.address}`);
-}
+  const suToken = await ZoboToken.deploy("SuToken", "SuT", 18, "1000000");
+  await suToken.deployed();
+  console.log(`SuToken Deployed to: ${suToken.address}`);
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
+  const zoboExchange = await ZoboExchange.deploy(accounts[1].address, 10);
+  await zoboExchange.deployed();
+  console.log(`Exchange Deployed to: ${zoboExchange.address}`);
+};
+
+const runMain = async () => {
+  try {
+    await main();
+    process.exit(0);
+  } catch (err) {
+    console.log(err);
     process.exit(1);
-  });
+  }
+};
+
+runMain();

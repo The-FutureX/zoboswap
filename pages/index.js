@@ -1,5 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import {
+  Alert,
+  Balance,
+  Markets,
+  Navbar,
+  Order,
+  OrderBook,
+  PriceChart,
+  Trades,
+  Transactions,
+} from "../components/componentsIndex";
 
 //Internal Import
 import config from "../config.json";
@@ -12,15 +23,6 @@ import {
   loadAllOrders,
   subscribeToEvents,
 } from "../store/interactions";
-import Alert from "./Alert";
-import Balance from "./Balance";
-import Markets from "./Markets";
-import Navbar from "./Navbar";
-import Order from "./Order";
-import OrderBook from "./OrderBook";
-import PriceChart from "./PriceChart";
-import Trades from "./Trades";
-import Transactions from "./Transactions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ const App = () => {
     // Connect Ethers to blockchain
     const provider = loadProvider(dispatch);
 
-    // Fetch current network's chainId (e.g. hardhat: 31337, kovan: 42)
+    // Fetch current network's chainId
     const chainId = await loadNetwork(provider, dispatch);
 
     // Reload page when network changes
@@ -43,9 +45,9 @@ const App = () => {
     });
 
     // Load token smart contracts
-    const mZOBO = config[chainId].mZOBO;
-    const mETH = config[chainId].mETH;
-    await loadTokens(provider, [mZOBO.address, mETH.address], dispatch);
+    const ZoboToken = config[chainId].ZoboToken;
+    const SiToken = config[chainId].SiToken;
+    await loadTokens(provider, [ZoboToken.address, SiToken.address], dispatch);
 
     // Load exchange smart contract
     const exchangeConfig = config[chainId].exchange;
@@ -72,6 +74,8 @@ const App = () => {
 
       <main className="exchange grid">
         <section className="exchange__section--left grid">
+          <Alert />
+
           <Markets />
 
           <Balance />
@@ -88,7 +92,6 @@ const App = () => {
           <OrderBook />
         </section>
       </main>
-      <Alert />
     </div>
   );
 };

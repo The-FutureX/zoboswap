@@ -1,16 +1,16 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-const tokens = (n) => {
+const tokensToEther = (n) => {
   return ethers.utils.parseUnits(n.toString(), "ether");
 };
 
-describe("Token", () => {
-  let token, accounts, deployer, receiver, exchange;
+describe("ZoboToken", () => {
+  let zoboToken, accounts, deployer, receiver, exchange;
 
   beforeEach(async () => {
-    const Token = await ethers.getContractFactory("Token");
-    token = await Token.deploy("mZOBO", "mZOBO", "1000000");
+    const ZoboToken = await ethers.getContractFactory("ZoboToken");
+    zoboToken = await ZoboToken.deploy("ZoboToken", "ZBT", 18, "1000000");
 
     accounts = await ethers.getSigners();
     deployer = accounts[0];
@@ -19,49 +19,49 @@ describe("Token", () => {
   });
 
   describe("Deployment", () => {
-    const name = "mZOBO";
-    const symbol = "mZOBO";
-    const decimals = "18";
-    const totalSupply = tokens("1000000");
+    const name = "ZoboToken";
+    const symbol = "ZBT";
+    const decimals = 18;
+    const totalSupply = tokensToEther("1000000");
 
     it("has correct name", async () => {
-      expect(await token.name()).to.equal(name);
+      expect(await zoboToken.name()).to.equal(name);
     });
 
     it("has correct symbol", async () => {
-      expect(await token.symbol()).to.equal(symbol);
+      expect(await zoboToken.symbol()).to.equal(symbol);
     });
 
     it("has correct decimals", async () => {
-      expect(await token.decimals()).to.equal(decimals);
+      expect(await zoboToken.decimals()).to.equal(decimals);
     });
 
     it("has correct total supply", async () => {
-      expect(await token.totalSupply()).to.equal(totalSupply);
+      expect(await zoboToken.totalSupply()).to.equal(totalSupply);
     });
 
     it("assigns total supply to deployer", async () => {
-      expect(await token.balanceOf(deployer.address)).to.equal(totalSupply);
+      expect(await zoboToken.balanceOf(deployer.address)).to.equal(totalSupply);
     });
   });
 
-  describe("Sending Tokens", () => {
+  describe("Sending tokensToEther", () => {
     let amount, transaction, result;
 
     describe("Success", () => {
       beforeEach(async () => {
-        amount = tokens(100);
-        transaction = await token
+        amount = tokensToEther(100);
+        transaction = await zoboToken
           .connect(deployer)
           .transfer(receiver.address, amount);
         result = await transaction.wait();
       });
 
-      it("transfers token balances", async () => {
-        expect(await token.balanceOf(deployer.address)).to.equal(
-          tokens(999900)
+      it("transfers zoboToken balances", async () => {
+        expect(await zoboToken.balanceOf(deployer.address)).to.equal(
+          tokensToEther(999900)
         );
-        expect(await token.balanceOf(receiver.address)).to.equal(amount);
+        expect(await zoboToken.balanceOf(receiver.address)).to.equal(amount);
       });
 
       it("emits a Transfer event", async () => {
@@ -77,16 +77,16 @@ describe("Token", () => {
 
     describe("Failure", () => {
       it("rejects insufficient balances", async () => {
-        const invalidAmount = tokens(100000000);
+        const invalidAmount = tokensToEther(100000000);
         await expect(
-          token.connect(deployer).transfer(receiver.address, invalidAmount)
+          zoboToken.connect(deployer).transfer(receiver.address, invalidAmount)
         ).to.be.reverted;
       });
 
       it("rejects invalid recipent", async () => {
-        const amount = tokens(100);
+        const amount = tokensToEther(100);
         await expect(
-          token
+          zoboToken
             .connect(deployer)
             .transfer("0x0000000000000000000000000000000000000000", amount)
         ).to.be.reverted;
@@ -98,17 +98,17 @@ describe("Token", () => {
     let amount, transaction, result;
 
     beforeEach(async () => {
-      amount = tokens(100);
-      transaction = await token
+      amount = tokensToEther(100);
+      transaction = await zoboToken
         .connect(deployer)
         .approve(exchange.address, amount);
       result = await transaction.wait();
     });
 
     describe("Success", () => {
-      it("allocates an allowance for delegated token spending", async () => {
+      it("allocates an allowance for delegated zoboToken spending", async () => {
         expect(
-          await token.allowance(deployer.address, exchange.address)
+          await zoboToken.allowance(deployer.address, exchange.address)
         ).to.equal(amount);
       });
 
@@ -126,7 +126,7 @@ describe("Token", () => {
     describe("Failure", () => {
       it("rejects invalid spenders", async () => {
         await expect(
-          token
+          zoboToken
             .connect(deployer)
             .approve("0x0000000000000000000000000000000000000000", amount)
         ).to.be.reverted;
@@ -138,8 +138,8 @@ describe("Token", () => {
     let amount, transaction, result;
 
     beforeEach(async () => {
-      amount = tokens(100);
-      transaction = await token
+      amount = tokensToEther(100);
+      transaction = await zoboToken
         .connect(deployer)
         .approve(exchange.address, amount);
       result = await transaction.wait();
@@ -147,22 +147,22 @@ describe("Token", () => {
 
     describe("Success", () => {
       beforeEach(async () => {
-        transaction = await token
+        transaction = await zoboToken
           .connect(exchange)
           .transferFrom(deployer.address, receiver.address, amount);
         result = await transaction.wait();
       });
 
-      it("transfers token balances", async () => {
-        expect(await token.balanceOf(deployer.address)).to.be.equal(
+      it("transfers zoboToken balances", async () => {
+        expect(await zoboToken.balanceOf(deployer.address)).to.be.equal(
           ethers.utils.parseUnits("999900", "ether")
         );
-        expect(await token.balanceOf(receiver.address)).to.be.equal(amount);
+        expect(await zoboToken.balanceOf(receiver.address)).to.be.equal(amount);
       });
 
       it("resets the allowance", async () => {
         expect(
-          await token.allowance(deployer.address, exchange.address)
+          await zoboToken.allowance(deployer.address, exchange.address)
         ).to.be.equal(0);
       });
 
@@ -178,11 +178,11 @@ describe("Token", () => {
     });
 
     describe("Failure", async () => {
-      const invalidAmount = tokens(100000000);
+      const invalidAmount = tokensToEther(100000000);
 
       it("rejects invalid spenders", async () => {
         await expect(
-          token
+          zoboToken
             .connect(exchange)
             .transferFrom(deployer.address, receiver.address, invalidAmount)
         ).to.be.reverted;

@@ -3,13 +3,13 @@
     "exchange": {
       "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
     },
-    "mZOBO": {
+    "ZoboToken": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     },
-    "mETH": {
+    "SiToken": {
       "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     },
-    "mDAI": {
+    "SuToken": {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
     },
     "explorerURL": "#"
@@ -19,13 +19,13 @@
     "exchange": {
       "address": "0xFBff418329eD6ed52A1cee2310331FC8f3084518"
     },
-    "mZOBO": {
+    "ZoboToken": {
       "address": "0x751DAB408F32d0D524dd31dFABEfCc5502ff8A1e"
     },
-    "mETH": {
+    "SiToken": {
       "address": "0x4A201668C556cee22D08196a681A0A6645f5bF91"
     },
-    "mDAI": {
+    "SuToken": {
       "address": "0xc07DeDB9c370404D09FB6f2A8Ec62614C1A9f045"
     },
     "explorerURL": "https://mumbai.polygonscan.com/"

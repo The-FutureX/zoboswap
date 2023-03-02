@@ -4,9 +4,10 @@ import {
   myOpenOrdersSelector,
   myFilledOrdersSelector,
 } from "../store/selectors";
-import sort from "../assets/sort.svg";
+import sort from "../public/assets/sort.svg";
 import { cancelOrder } from "../store/interactions";
 import Banner from "./Banner";
+import Image from "next/image";
 
 const Transactions = () => {
   const [showMyOrders, setShowMyOrders] = useState(true);
@@ -67,11 +68,11 @@ const Transactions = () => {
                 <tr>
                   <th>
                     {symbols && symbols[0]}
-                    <img src={sort} alt="Sort" />
+                    <Image src={sort} alt="Sort" />
                   </th>
                   <th>
                     {symbols && symbols[0]}/{symbols && symbols[1]}
-                    <img src={sort} alt="Sort" />
+                    <Image src={sort} alt="Sort" />
                   </th>
                   <th></th>
                 </tr>
@@ -124,15 +125,15 @@ const Transactions = () => {
               <tr>
                 <th>
                   Time
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
                 <th>
                   {symbols && symbols[0]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
                 <th>
                   {symbols && symbols[0]}/{symbols && symbols[1]}
-                  <img src={sort} alt="Sort" />
+                  <Image src={sort} alt="Sort" />
                 </th>
               </tr>
             </thead>

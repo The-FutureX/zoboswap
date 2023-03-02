@@ -6,19 +6,26 @@ const tokens = (n) => {
 };
 
 describe("Exchange", () => {
-  let token1, token2, accounts, deployer, feeAccount, exchange, user1, user2;
-  const feePercent = 10;
+  let token1,
+    token2,
+    accounts,
+    deployer,
+    ownerFeeAccount,
+    exchange,
+    user1,
+    user2;
+  const pricePercent = 10;
 
   beforeEach(async () => {
-    const Exchange = await ethers.getContractFactory("Exchange");
-    const Token = await ethers.getContractFactory("Token");
+    const ZoboExchange = await ethers.getContractFactory("ZoboExchange");
+    const ZoboToken = await ethers.getContractFactory("ZoboToken");
 
-    token1 = await Token.deploy("mZOBO", "mZOBO", 1000000);
-    token2 = await Token.deploy("SuCoin", "sCN", 1000000);
+    token1 = await ZoboToken.deploy("ZoboToken", "ZBT", 18, "1000000");
+    token2 = await ZoboToken.deploy("SiToken", "STN", 18, "1000000");
 
     accounts = await ethers.getSigners();
     deployer = accounts[0];
-    feeAccount = accounts[1];
+    ownerFeeAccount = accounts[1];
     user1 = accounts[2];
     user2 = accounts[3];
 
@@ -27,15 +34,17 @@ describe("Exchange", () => {
       .transfer(user1.address, tokens(100));
     await transaction.wait();
 
-    exchange = await Exchange.deploy(feeAccount.address, feePercent);
+    exchange = await ZoboExchange.deploy(ownerFeeAccount.address, pricePercent);
   });
 
   describe("Deployment", () => {
-    it("tracks the fee account", async () => {
-      expect(await exchange.feeAccount()).to.equal(feeAccount.address);
+    it("tracks the Owner Fee account", async () => {
+      expect(await exchange.ownerFeeAccount()).to.equal(
+        ownerFeeAccount.address
+      );
     });
     it("tracks the fee percent", async () => {
-      expect(await exchange.feePercent()).to.equal(feePercent);
+      expect(await exchange.pricePercent()).to.equal(pricePercent);
     });
   });
 
@@ -54,6 +63,7 @@ describe("Exchange", () => {
           .depositToken(token1.address, amount);
         result = await transaction.wait();
       });
+
       it("tracks the token deposit", async () => {
         expect(await token1.balanceOf(exchange.address)).to.equal(amount);
         expect(await exchange.tokens(token1.address, user1.address)).to.equal(
@@ -132,7 +142,7 @@ describe("Exchange", () => {
     });
 
     describe("Failure", () => {
-      it("fails for insufficient balance", async () => {
+      it("fails dues to insufficient balance", async () => {
         // Attepmt to withdrawToken without depositing
         await expect(
           exchange.connect(user1).withdrawToken(token1.address, amount)
@@ -185,6 +195,7 @@ describe("Exchange", () => {
       it("tracks the newly create order", async () => {
         expect(await exchange.orderCount()).to.equal(1);
       });
+
       it("emits an Order event", async () => {
         const event = result.events[0];
         const args = event.args;
@@ -254,7 +265,7 @@ describe("Exchange", () => {
         });
 
         it("updates canceled orders", async () => {
-          expect(await exchange.orderCancelled(1)).to.equal(true);
+          expect(await exchange.cancelledOrder(1)).to.equal(true);
         });
 
         it("emits a Cancel event", async () => {
@@ -303,7 +314,7 @@ describe("Exchange", () => {
           ).to.equal(tokens(1));
 
           expect(
-            await exchange.balanceOf(token1.address, feeAccount.address)
+            await exchange.balanceOf(token1.address, ownerFeeAccount.address)
           ).to.equal(tokens(0));
 
           // Token Get
@@ -316,12 +327,12 @@ describe("Exchange", () => {
           ).to.equal(tokens(0.9));
 
           expect(
-            await exchange.balanceOf(token2.address, feeAccount.address)
+            await exchange.balanceOf(token2.address, ownerFeeAccount.address)
           ).to.equal(tokens(0.1));
         });
 
         it("updates filled orders", async () => {
-          expect(await exchange.orderFilled(1)).to.equal(true);
+          expect(await exchange.filledOrder(1)).to.equal(true);
         });
 
         it("emits a Trade event", async () => {

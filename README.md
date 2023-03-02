@@ -4,15 +4,15 @@ ZoboSwap DEX
 
 # Description
 
-ZoboSwap is a decentralized exchange that operates on the Polygon blockchain, which is a layer 2 scaling solution for Ethereum. This means that transactions on ZoboSwap are processed and settled on the Polygon blockchain, providing users with fast and low-cost trading experience. ZoboSwap offers a decentralized and trustless platform for users to trade cryptocurrencies, where they have full control over their funds. mZOBO is the native token of ZoboSwap and is used as a means of payment for trading fees.
+ZoboExchange is a decentralized exchange that operates on the Polygon blockchain, which is a layer 2 scaling solution for Ethereum. This means that transactions on Zobo Exchange are processed and settled on the Polygon blockchain, providing users with fast and low-cost trading experience. ZoboExchange offers a decentralized and trustless platform for users to trade cryptocurrencies, where they have full control over their funds. ZoboToken is the native token of ZoboSwap and is used as a means of payment for trading fees.
 
 # Snapshot
 
-![Zoboswap](/screenshots/zoboswap.png)
+![ZoboExchange](/screenshots/zoboswap.png)
 
 # Link
 
-ZoboSwap is a decentralized exchange (DEX) built on the polygon blockchain. It allows for the buying and selling of various cryptocurrencies.
+ZoboExchnage is a decentralized exchange (DEX) built on the polygon blockchain. It allows for the buying and selling of various cryptocurrencies.
 
 Github Link: https://github.com/The-FutureX/zoboswap
 
@@ -67,6 +67,12 @@ npx hardhat node
 npx hardhat run --network localhost ./script/deploy.js
 ```
 
+**!!IMPORTANT: Run the Seed Script to have the seed data on the exchange app**
+
+```javascript
+npx hardhat run --network localhost ./script/seed-exchange.js
+```
+
 **Start the development server**
 
 ```javascript
@@ -101,7 +107,7 @@ http://localhost:3000
 
 # Token Contract
 
-The mZOBO token smart contract was deployed at:
+The ZoboToken token smart contract was deployed at:
 
 https://mumbai.polygonscan.com/address/0x751DAB408F32d0D524dd31dFABEfCc5502ff8A1e
 
@@ -115,7 +121,7 @@ On the `MUMBAI TESTNET`.
 
 <br>
 
-The mETH token smart contract was deployed at:
+The SiToken token smart contract was deployed at:
 
 https://mumbai.polygonscan.com/address/0x4A201668C556cee22D08196a681A0A6645f5bF91
 
@@ -129,7 +135,7 @@ On the `MUMBAI TESTNET`.
 
 <br>
 
-The mDAI token smart contract was deployed at:
+The SuToken token smart contract was deployed at:
 
 https://mumbai.polygonscan.com/address/0xc07DeDB9c370404D09FB6f2A8Ec62614C1A9f045
 
@@ -161,7 +167,7 @@ On the `MUMBAI TESTNET`.
 
 `transfer`: Sends an amount of token to an address.
 
-`approve`: Approves an allowance amount that can be spent on behalf. 
+`approve`: Approves an allowance amount that can be spent on behalf.
 
 `transferFrom`: Sends an amount of token from one address to another address.
 
@@ -210,7 +216,7 @@ On the `MUMBAI TESTNET`.
 
 `depositToken`: Deposits token into liquidity pool.
 
-`withdrawToken`: Withdraws token into liquidity pool. 
+`withdrawToken`: Withdraws token into liquidity pool.
 
 `balanceOf`: Check Balances of an address.
 

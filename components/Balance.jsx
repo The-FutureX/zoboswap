@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import zobo from "../assets/zobo.svg";
-import eth from "../assets/eth.svg";
+import zobo from "../public/assets/zobo.svg";
+import eth from "../public/assets/eth.svg";
 
 import { loadBalances, transferTokens } from "../store/interactions";
+import Image from "next/image";
 
 const Balance = () => {
   const [isDeposit, setIsDeposit] = useState(true);
@@ -105,7 +106,13 @@ const Balance = () => {
     if (exchange && tokens[0] && tokens[1] && account) {
       loadBalances(exchange, tokens, account, dispatch);
     }
-  }, [exchange, tokens, account, transferInProgress, dispatch]);
+  }, [
+    exchange,
+    tokens,
+    account,
+    transferInProgress,
+    dispatch,
+  ]);
 
   return (
     <div className="component exchange__transfers">
@@ -125,14 +132,14 @@ const Balance = () => {
         </div>
       </div>
 
-      {/* Deposit/Withdraw Component 1 (mZOBO) */}
+      {/* Deposit/Withdraw Component 1 (ZoboToken) */}
 
       <div className="exchange__transfers--form">
         <div className="flex-between">
           <p>
             <small>Token</small>
             <br />
-            <img src={zobo} alt="Token Logo" />
+            <Image src={zobo} alt="Token Logo" />
             {symbols && symbols[0]}
           </p>
           <p>
@@ -171,14 +178,14 @@ const Balance = () => {
 
       <hr />
 
-      {/* Deposit/Withdraw Component 2 (mETH) */}
+      {/* Deposit/Withdraw Component 2 (SiToken) */}
 
       <div className="exchange__transfers--form">
         <div className="flex-between">
           <p>
             <small>Token</small>
             <br />
-            <img src={eth} alt="Token Logo" />
+            <Image src={eth} alt="Token Logo" />
             {symbols && symbols[1]}
           </p>
           <p>

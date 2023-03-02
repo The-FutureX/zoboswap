@@ -1,15 +1,17 @@
 import { useSelector } from "react-redux";
+import dynamic from "next/dynamic";
 
-import Chart from "react-apexcharts";
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-import arrowDown from "../assets/down-arrow.svg";
-import arrowUp from "../assets/up-arrow.svg";
+import arrowDown from "../public/assets/down-arrow.svg";
+import arrowUp from "../public/assets/up-arrow.svg";
 
 import { defaultSeries, options } from "./PriceChart.config";
 
 import { priceChartSelector } from "../store/selectors";
 
 import Banner from "./Banner";
+import Image from "next/image";
 
 const PriceChart = () => {
   const account = useSelector((state) => state.provider.account);
@@ -21,13 +23,12 @@ const PriceChart = () => {
       <div className="component__header flex-between">
         <div className="flex">
           <h2>{symbols && `${symbols[0]}/${symbols[1]}`}</h2>
-
           {priceChart && (
             <div className="flex">
               {priceChart.lastPriceChange === "+" ? (
-                <img src={arrowUp} alt="Arrow up" />
+                <Image src={arrowUp} alt="Arrow up" />
               ) : (
-                <img src={arrowDown} alt="Arrow down" />
+                <Image src={arrowDown} alt="Arrow down" />
               )}
 
               <span className="up">{priceChart.lastPrice}</span>
