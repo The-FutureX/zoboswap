@@ -5,52 +5,21 @@ import "hardhat/console.sol";
 import "./ZoboToken.sol";
 
 contract ZoboExchange {
-    // Track fee account
+    /*
+    * Declaring state variables.
+    * Track fee account
+    */
     address public ownerFeeAccount;
     uint256 public pricePercent;
     uint256 public orderCount;
-    mapping(address => mapping(address => uint256)) public tokens;
-    mapping(uint256 => _Order) public orders;
-    mapping(uint256 => bool) public cancelledOrder;
-    mapping(uint256 => bool) public filledOrder;
 
-    event Deposit(address token, address user, uint256 amount, uint256 balance);
-    event Withdraw(
-        address token,
-        address user,
-        uint256 amount,
-        uint256 balance
-    );
+    // Constructor here
+    constructor(address _ownerFeeAccount, uint256 _pricePercent) {
+        ownerFeeAccount = _ownerFeeAccount;
+        pricePercent = _pricePercent;
+    }
 
-    event Order(
-        uint256 id,
-        address user,
-        address tokenGet,
-        uint256 amountGet,
-        address tokenGive,
-        uint256 amountGive,
-        uint256 timestamp
-    );
-    event Cancel(
-        uint256 id,
-        address user,
-        address tokenGet,
-        uint256 amountGet,
-        address tokenGive,
-        uint256 amountGive,
-        uint256 timestamp
-    );
-
-    event Trade(
-        uint256 id,
-        address user,
-        address tokenGet,
-        uint256 amountGet,
-        address tokenGive,
-        uint256 amountGive,
-        address creator,
-        uint256 timestamp
-    );
+    //  Struct for Struct for Order
     struct _Order {
         uint256 id;
         address user;
@@ -60,33 +29,38 @@ contract ZoboExchange {
         uint256 amountGive;
         uint256 timestamp;
     }
+    
+    mapping(address => mapping(address => uint256)) public tokens;
+    mapping(uint256 => _Order) public orders;
+    mapping(uint256 => bool) public cancelledOrder;
+    mapping(uint256 => bool) public filledOrder;
 
-    constructor(address _ownerFeeAccount, uint256 _pricePercent) {
-        ownerFeeAccount = _ownerFeeAccount;
-        pricePercent = _pricePercent;
-    }
+    // Events
+    event Deposit(address token, address user, uint256 amount, uint256 balance);
+    event Withdraw(address token, address user, uint256 amount, uint256 balance);
+    event Order(uint256 id, address user, address tokenGet, uint256 amountGet, address tokenGive, uint256 amountGive, uint256 timestamp);
+    event Cancel(uint256 id, address user, address tokenGet, uint256 amountGet, address tokenGive, uint256 amountGive, uint256 timestamp);
+    event Trade(uint256 id, address user, address tokenGet, uint256 amountGet, address tokenGive, uint256 amountGive, address creator, uint256 timestamp);
 
+    // Modifier of existing Order
     modifier existingOrder(uint256 _id) {
-        require(_id > 0 && _id <= orderCount, "Order does not exist");
+        require(
+            _id > 0 && _id <= orderCount, "Order does not exist"
+        );
         _;
     }
 
     // Check Balances
     function balanceOf(address _token, address _user)
-        public
-        view
-        returns (uint256)
-    {
+        public view returns (uint256) {
         return tokens[_token][_user];
     }
 
     // Deposit Tokens
     function depositToken(address _token, uint256 _amount) public {
         require(
-            ZoboToken(_token).transferFrom(msg.sender, address(this), _amount),
-            "Token deposit not allowed"
+            ZoboToken(_token).transferFrom(msg.sender, address(this), _amount), "Token deposit not allowed"
         );
-
         tokens[_token][msg.sender] += _amount;
 
         emit Deposit(_token, msg.sender, _amount, tokens[_token][msg.sender]);
@@ -95,49 +69,25 @@ contract ZoboExchange {
     // Withdraw Tokens
     function withdrawToken(address _token, uint256 _amount) public {
         require(
-            tokens[_token][msg.sender] >= _amount,
-            "Can't complete withdrawer"
+            tokens[_token][msg.sender] >= _amount, "Can't complete withdrawer"
         );
 
         ZoboToken(_token).transfer(msg.sender, _amount);
-
         tokens[_token][msg.sender] -= _amount;
 
         emit Withdraw(_token, msg.sender, _amount, tokens[_token][msg.sender]);
     }
 
     // Make Orders
-    function makeOrder(
-        address _tokenGet,
-        uint256 _amountGet,
-        address _tokenGive,
-        uint256 _amountGive
-    ) public {
+    function makeOrder(address _tokenGet, uint256 _amountGet, address _tokenGive, uint256 _amountGive) public {
         require(
-            balanceOf(_tokenGive, msg.sender) >= _amountGive,
-            "Insufficient Token to make Order"
+            balanceOf(_tokenGive, msg.sender) >= _amountGive, "Insufficient Token to make Order"
         );
 
         orderCount++;
-        orders[orderCount] = _Order(
-            orderCount,
-            msg.sender,
-            _tokenGet,
-            _amountGet,
-            _tokenGive,
-            _amountGive,
-            block.timestamp
-        );
+        orders[orderCount] = _Order(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, block.timestamp);
 
-        emit Order(
-            orderCount,
-            msg.sender,
-            _tokenGet,
-            _amountGet,
-            _tokenGive,
-            _amountGive,
-            block.timestamp
-        );
+        emit Order(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, block.timestamp);
     }
 
     // Cancel Order
@@ -146,20 +96,11 @@ contract ZoboExchange {
 
         cancelledOrder[_id] = true;
         require(
-            address(_order.user) == msg.sender,
-            "Unauthorized cancellation"
+            address(_order.user) == msg.sender, "Unauthorized cancellation"
         );
         require(_order.id == _id, "Order doesn't exist");
 
-        emit Cancel(
-            _id,
-            msg.sender,
-            _order.tokenGet,
-            _order.amountGet,
-            _order.tokenGive,
-            _order.amountGive,
-            block.timestamp
-        );
+        emit Cancel(_id, msg.sender, _order.tokenGet, _order.amountGet, _order.tokenGive, _order.amountGive, block.timestamp);
     }
 
     // Fill Orders and Charge Fees
@@ -183,23 +124,7 @@ contract ZoboExchange {
         tokens[_order.tokenGive][_order.user] -= _order.amountGive;
         tokens[_order.tokenGive][msg.sender] += _order.amountGive;
 
-        emit Trade(
-            _order.id,
-            msg.sender,
-            _order.tokenGet,
-            _order.amountGet,
-            _order.tokenGive,
-            _order.amountGive,
-            _order.user,
-            block.timestamp
-        );
+        emit Trade(_order.id, msg.sender, _order.tokenGet, _order.amountGet, _order.tokenGive, _order.amountGive, _order.user, block.timestamp);
         filledOrder[_order.id] = true;
     }
 }
-
-// mapping(address => mapping(address => uint256)) public balanceOf;
-
-// require(
-//     balanceOf[_tokenGive][msg.sender] >= _amountGive,
-//     "Insufficient Token to make Order"
-// );

@@ -16,7 +16,10 @@ module.exports = {
   solidity: "0.8.9",
   defaultNetwork: "localhost",
   networks: {
-    localhost: {},
+    localhost: {
+    url: "http://localhost:8545",
+      chainId: 31337,
+    },
     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       accounts: privateKeys.split(","),
