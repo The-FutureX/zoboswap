@@ -64,13 +64,13 @@ npx hardhat node
 **Run the deploy Script**
 
 ```javascript
-npx hardhat run --network localhost ./script/deploy.js
+npx hardhat run --network localhost ./scripts/deploy.js
 ```
 
 **!!IMPORTANT: Run the Seed Script to have the seed data on the exchange app**
 
 ```javascript
-npx hardhat run --network localhost ./script/seed-exchange.js
+npx hardhat run --network localhost ./scripts/seed-exchange.js
 ```
 
 **Start the development server**
