@@ -79,7 +79,7 @@ npx hardhat run --network localhost ./scripts/seed-exchange.js
 npm run dev
 ```
 
-**!!IMPORTANT: Ensure you are using the `Mumbai Test Network` or use `localhost` on your `metamask wallet` or any other wallet when connecting. Setup Details below**
+**!!IMPORTANT: Ensure you're using the `Mumbai Test Network`, you can also use `localhost` on your `metamask wallet` or any other wallet when connecting. Setup Details below**
 
 **Port to Run the Website**
 
