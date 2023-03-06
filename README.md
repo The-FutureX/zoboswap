@@ -20,11 +20,11 @@ Production Link: https://zoboswap-frontend.vercel.app/
 
 # Authors
 
-Oluwatimilehin Bello
-Github Link: https://github.com/Timilehin-bello
-
 Abiye Chris. I. Surulere
 Github Link: https://github.com/suruabiye
+
+Oluwatimilehin Bello
+Github Link: https://github.com/Timilehin-bello
 
 Toluwani Olugbesan
 Github Link: https://github.com/Tolu1
@@ -79,6 +79,8 @@ npx hardhat run --network localhost ./scripts/seed-exchange.js
 npm run dev
 ```
 
+**!!IMPORTANT: Ensure you are using the `Mumbai Test Network` or use `localhost` on your `metamask wallet` or any other wallet when connecting. Setup Details below**
+
 **Port to Run the Website**
 
 ```
@@ -86,8 +88,7 @@ http://localhost:3000
 ```
 
 ## Metamask Setup
-
-- Ensure you are using the `Mumbai Test Network` on your `metamask wallet` or any other wallet when connecting.
+ - Here is how to setup your testnets
 
 ### Polygon Mumbai Network Setup
 
