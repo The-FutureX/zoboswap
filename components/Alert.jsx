@@ -1,7 +1,6 @@
 import { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-
-import { myEventsSelector } from "../store/selectors";
+import { eventsSelector } from "../store/selectors";
 
 import config from "../config.json";
 
@@ -14,7 +13,7 @@ const Alert = () => {
     (state) => state.exchange.transaction.isPending
   );
   const isError = useSelector((state) => state.exchange.transaction.isError);
-  const events = useSelector(myEventsSelector);
+  const events = useSelector(eventsSelector);
 
   const removeHandler = async (e) => {
     alertRef.current.className = "alert--remove";

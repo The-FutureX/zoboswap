@@ -35,7 +35,7 @@ const openOrders = (state) => {
 
 /**************************** MY EVENTS ******************************/
 
-export const myEventsSelector = createSelector(
+export const eventsSelector = createSelector(
   account,
   events,
   (account, events) => {
