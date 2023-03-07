@@ -34,6 +34,11 @@ const App = () => {
     // Fetch current network's chainId
     const chainId = await getNetwork(provider, dispatch);
 
+    const supportedNetwork = [
+      {id: 80001, name: "Mumbai Testnet"},
+      {id: 31337, name: "Localhost"}
+    ];
+
     // Reload page when network changes
     window.ethereum.on("chainChanged", () => {
       window.location.reload();
@@ -45,18 +50,13 @@ const App = () => {
     });
 
     // Check if ChainId exists in the supported chain..
-    const supportedNetwork = [
-      {id: 80001, name: "Mumbai Testnet"},
-      {id: 31337, name: "Localhost"}
-    ];
-
     const found = supportedNetwork.some(obj => obj.id === chainId)
     if (found) {
       // continue..
 
       // get token smart contracts
-      const ZoboToken = config[chainId] === undefined ? null : config[chainId].ZoboToken;
-      const SiToken = config[chainId] === undefined ? null : config[chainId].SiToken;
+      const ZoboToken = config[chainId].ZoboToken;
+      const SiToken = config[chainId].SiToken;
       await getTokens(provider, [ZoboToken.address, SiToken.address], dispatch);
 
       // Load exchange smart contract
