@@ -35,6 +35,12 @@ Github Link: https://github.com/RuthO1
 Kingsley Onoh
 Github Link: https://github.com/KingsleyOnoh38
 
+# Stacks
+HTML,CSS, Tailwind, Next.js and Solidity.
+
+# Inspiration/Muse:
+We were inspired by Dapp University. <br/>
+
 # How to Install and Run the Project
 
 **Clone the repository**
