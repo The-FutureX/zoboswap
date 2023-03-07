@@ -1,16 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// svg images
 import zobo from "../public/assets/zobo.svg";
 import eth from "../public/assets/eth.svg";
+
+import {getBalances, transferTokens} from "../store/interactions";
 import Image from "next/image";
-import {
-  getBalances,
-  transferTokens
-} from "../store/interactions";
 
 const Balance = () => {
-  const dispatch = useDispatch();
   const provider = useSelector((state) => state.provider.connection);
   const account = useSelector((state) => state.provider.account);
 
@@ -23,6 +21,8 @@ const Balance = () => {
   const [isDeposit, setIsDeposit] = useState(true);
   const [token1TransferAmount, setToken1TransferAmount] = useState(0);
   const [token2TransferAmount, setToken2TransferAmount] = useState(0);
+
+  const dispatch = useDispatch();
 
   const tokens = useSelector((state) => state.tokens.contracts);
   const symbols = useSelector((state) => state.tokens.symbols);
@@ -51,47 +51,26 @@ const Balance = () => {
     }
   };
 
-  const depositHandler = (e, token) => {
+  const handleDeposit = (e, token) => {
     e.preventDefault();
 
     if (token.address === tokens[0].address) {
       transferTokens(provider, exchange, "Deposit", token, token1TransferAmount, dispatch);
       setToken1TransferAmount(0);
     } else {
-      transferTokens(
-        provider,
-        exchange,
-        "Deposit",
-        token,
-        token2TransferAmount,
-        dispatch
-      );
+      transferTokens(provider, exchange, "Deposit", token, token2TransferAmount, dispatch);
       setToken2TransferAmount(0);
     }
   };
 
-  const withdrawHandler = (e, token) => {
+  const handleWithdraw = (e, token) => {
     e.preventDefault();
 
     if (token.address === tokens[0].address) {
-      transferTokens(
-        provider,
-        exchange,
-        "Withdraw",
-        token,
-        token1TransferAmount,
-        dispatch
-      );
+      transferTokens(provider, exchange, "Withdraw", token, token1TransferAmount, dispatch);
       setToken1TransferAmount(0);
     } else {
-      transferTokens(
-        provider,
-        exchange,
-        "Withdraw",
-        token,
-        token2TransferAmount,
-        dispatch
-      );
+      transferTokens(provider, exchange, "Withdraw", token, token2TransferAmount, dispatch);
       setToken2TransferAmount(0);
     }
   };
@@ -151,8 +130,8 @@ const Balance = () => {
         <form
           onSubmit={
             isDeposit
-              ? (e) => depositHandler(e, tokens[0])
-              : (e) => withdrawHandler(e, tokens[0])
+              ? (e) => handleDeposit(e, tokens[0])
+              : (e) => handleWithdraw(e, tokens[0])
           }
         >
           <label htmlFor="token0">{symbols && symbols[0]} Amount</label>
@@ -197,8 +176,8 @@ const Balance = () => {
         <form
           onSubmit={
             isDeposit
-              ? (e) => depositHandler(e, tokens[1])
-              : (e) => withdrawHandler(e, tokens[1])
+              ? (e) => handleDeposit(e, tokens[1])
+              : (e) => handleWithdraw(e, tokens[1])
           }
         >
           <label htmlFor="token1">{symbols && symbols[1]} Amount</label>
