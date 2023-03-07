@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import config from "../config.json";
 
-import { loadTokens } from "../store/interactions";
+import { getTokens } from "../store/interactions";
 
 const Markets = () => {
   const provider = useSelector((state) => state.provider.connection);
@@ -11,7 +11,7 @@ const Markets = () => {
   const dispatch = useDispatch();
 
   const marketHandler = async (e) => {
-    loadTokens(provider, e.target.value.split(","), dispatch);
+    getTokens(provider, e.target.value.split(","), dispatch);
   };
 
   return (
