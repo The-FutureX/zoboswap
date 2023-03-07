@@ -8,7 +8,7 @@ ZoboExchange is a decentralized exchange that operates on the Polygon blockchain
 
 # Snapshot
 
-![ZoboExchange](/screenshots/zobo.mp4)
+![ZoboExchange](/screenshots/zobo.gif)
 
 # Link
 
