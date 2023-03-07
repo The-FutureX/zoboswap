@@ -5,7 +5,7 @@ import sort from "../public/assets/sort.svg";
 
 import { filledOrdersSelector } from "../store/selectors";
 
-import Board from "./Board";
+import ChartBoard from "./ChartBoard";
 
 const Trades = () => {
   const symbols = useSelector((state) => state.tokens.symbols);
@@ -18,7 +18,7 @@ const Trades = () => {
       </div>
 
       {!filledOrders || filledOrders.length === 0 ? (
-        <Board text="No Transactions" />
+        <ChartBoard text="No Transactions" />
       ) : (
         <table>
           <thead>

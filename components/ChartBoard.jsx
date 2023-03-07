@@ -1,4 +1,4 @@
-const Board = ({ text }) => {
+const ChartBoard = ({ text }) => {
   return (
     <div className='banner'>
       <h1>{text}</h1>
@@ -6,4 +6,4 @@ const Board = ({ text }) => {
   );
 }
 
-export default Board;
+export default ChartBoard;

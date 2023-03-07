@@ -3,25 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 
 import zobo from "../public/assets/zobo.svg";
 import eth from "../public/assets/eth.svg";
-
-import { loadBalances, transferTokens } from "../store/interactions";
 import Image from "next/image";
+import {
+  getBalances,
+  transferTokens
+} from "../store/interactions";
 
 const Balance = () => {
-  const [isDeposit, setIsDeposit] = useState(true);
-  const [token1TransferAmount, setToken1TransferAmount] = useState(0);
-  const [token2TransferAmount, setToken2TransferAmount] = useState(0);
-
   const dispatch = useDispatch();
-
   const provider = useSelector((state) => state.provider.connection);
   const account = useSelector((state) => state.provider.account);
 
   const exchange = useSelector((state) => state.exchange.contract);
   const exchangeBalances = useSelector((state) => state.exchange.balances);
   const transferInProgress = useSelector(
-    (state) => state.exchange.transferInProgress
+      (state) => state.exchange.transferInProgress
   );
+
+  const [isDeposit, setIsDeposit] = useState(true);
+  const [token1TransferAmount, setToken1TransferAmount] = useState(0);
+  const [token2TransferAmount, setToken2TransferAmount] = useState(0);
 
   const tokens = useSelector((state) => state.tokens.contracts);
   const symbols = useSelector((state) => state.tokens.symbols);
@@ -30,7 +31,7 @@ const Balance = () => {
   const depositRef = useRef(null);
   const withdrawRef = useRef(null);
 
-  const tabHandler = (e) => {
+  const handleTabClickEvent = (e) => {
     if (e.target.className !== depositRef.current.className) {
       e.target.className = "tab tab--active";
       depositRef.current.className = "tab";
@@ -54,14 +55,7 @@ const Balance = () => {
     e.preventDefault();
 
     if (token.address === tokens[0].address) {
-      transferTokens(
-        provider,
-        exchange,
-        "Deposit",
-        token,
-        token1TransferAmount,
-        dispatch
-      );
+      transferTokens(provider, exchange, "Deposit", token, token1TransferAmount, dispatch);
       setToken1TransferAmount(0);
     } else {
       transferTokens(
@@ -104,7 +98,7 @@ const Balance = () => {
 
   useEffect(() => {
     if (exchange && tokens[0] && tokens[1] && account) {
-      loadBalances(exchange, tokens, account, dispatch);
+      getBalances(exchange, tokens, account, dispatch);
     }
   }, [
     exchange,
@@ -120,13 +114,13 @@ const Balance = () => {
         <h2>Balance</h2>
         <div className="tabs">
           <button
-            onClick={tabHandler}
+            onClick={handleTabClickEvent}
             ref={depositRef}
             className="tab tab--active"
           >
             Deposit
           </button>
-          <button onClick={tabHandler} ref={withdrawRef} className="tab">
+          <button onClick={handleTabClickEvent} ref={withdrawRef} className="tab">
             Withdraw
           </button>
         </div>

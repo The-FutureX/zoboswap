@@ -116,7 +116,7 @@ export const subscribeToEvents = (exchange, dispatch) => {
 };
 
 /*********LOAD USER BALANCES (WALLET & EXCHANGE BALANCES)**********/
-export const loadBalances = async (exchange, tokens, account, dispatch) => {
+export const getBalances = async (exchange, tokens, account, dispatch) => {
   let balance = ethers.utils.formatUnits(
     await tokens[0].balanceOf(account),
     18
