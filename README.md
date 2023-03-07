@@ -4,7 +4,7 @@ ZoboSwap DEX
 
 # Description
 
-ZoboExchange is a decentralized exchange that operates on the Polygon blockchain, which is a layer 2 scaling solution for Ethereum. This means that transactions on Zobo Exchange are processed and settled on the Polygon blockchain, providing users with fast and low-cost trading experience. ZoboExchange offers a decentralized and trustless platform for users to trade cryptocurrencies, where they have full control over their funds. ZoboToken is the native token of ZoboSwap and is used as a means of payment for trading fees.
+ZoboExchange is a decentralized exchange that operates on the Polygon blockchain, which is a layer 2 scaling solution for Ethereum. This means that transactions on Zobo Exchange are processed and settled on the Polygon blockchain, providing users with fast and low-cost trading experience. ZoboExchange offers a decentralized and trustless platform for users to trade cryptocurrencies, where they have full control over their funds. ZoboToken is the native token of ZoboExchange and is used as a means of payment for trading fees.
 
 # Snapshot
 
@@ -55,6 +55,12 @@ https://github.com/The-FutureX/zoboswap.git
 
 ```bash
 cd zoboswap
+```
+
+**Delete package-lock.json**
+
+```javascript
+rm package-lock.json
 ```
 
 **Install the dependencies**
@@ -125,12 +131,12 @@ Public Key1`0xCC25B243088E302C5dEcb60D98f1Ed9A3b4ef53a` = Private Key1:`581d24bc
 
 The ZoboToken token smart contract was deployed at:
 
-https://mumbai.polygonscan.com/address/0x751DAB408F32d0D524dd31dFABEfCc5502ff8A1e
+https://mumbai.polygonscan.com/address/0xe6415a44B6a0B8789e1c305CD60Ddd7c73a5d855
 
-With this address:
+contract address:
 
 ```
-0x751DAB408F32d0D524dd31dFABEfCc5502ff8A1e
+0xe6415a44B6a0B8789e1c305CD60Ddd7c73a5d855
 ```
 
 On the `MUMBAI TESTNET`.
@@ -139,12 +145,12 @@ On the `MUMBAI TESTNET`.
 
 The SiToken token smart contract was deployed at:
 
-https://mumbai.polygonscan.com/address/0x4A201668C556cee22D08196a681A0A6645f5bF91
+https://mumbai.polygonscan.com/address/0x486C63181b5195818bcAEb08951f9Fe45Fc931dB
 
-With this address:
+contract address:
 
 ```
-0x4A201668C556cee22D08196a681A0A6645f5bF91
+0x486C63181b5195818bcAEb08951f9Fe45Fc931dB
 ```
 
 On the `MUMBAI TESTNET`.
@@ -153,12 +159,12 @@ On the `MUMBAI TESTNET`.
 
 The SuToken token smart contract was deployed at:
 
-https://mumbai.polygonscan.com/address/0xc07DeDB9c370404D09FB6f2A8Ec62614C1A9f045
+https://mumbai.polygonscan.com/address/0xcaA28CF23d874C84eb741Adb800Ed8bfB62DC5D4
 
-With this address:
+contract address:
 
 ```
-0xc07DeDB9c370404D09FB6f2A8Ec62614C1A9f045
+0xcaA28CF23d874C84eb741Adb800Ed8bfB62DC5D4
 ```
 
 On the `MUMBAI TESTNET`.
@@ -196,12 +202,12 @@ On the `MUMBAI TESTNET`.
 
 The smart contract was deployed at:
 
-https://mumbai.polygonscan.com/address/0xFBff418329eD6ed52A1cee2310331FC8f3084518
+https://mumbai.polygonscan.com/address/0x049aEFD7416a4808DA0A040FeD3399D1c4A86ABE
 
-With this address:
+contract address:
 
 ```
-0xFBff418329eD6ed52A1cee2310331FC8f3084518
+0x049aEFD7416a4808DA0A040FeD3399D1c4A86ABE
 ```
 
 On the `MUMBAI TESTNET`.

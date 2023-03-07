@@ -1,8 +1,8 @@
 const { task } = require("hardhat/config");
 
 require("@nomiclabs/hardhat-waffle");
-require("dotenv").config();
-const privateKeys = process.env.PRIVATE_KEYS || "";
+// require("dotenv").config();
+// const privateKeys = process.env.PRIVATE_KEYS || "";
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
