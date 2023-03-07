@@ -36,9 +36,11 @@ Kingsley Onoh
 Github Link: https://github.com/KingsleyOnoh38
 
 # Stacks
+
 HTML,CSS, Tailwind, Next.js and Solidity.
 
 # Inspiration/Muse:
+
 We were inspired by Dapp University. <br/>
 
 # How to Install and Run the Project
@@ -93,8 +95,15 @@ npm run dev
 http://localhost:3000
 ```
 
+In order to interact with zoboExchange LOCALLY you must add these two fake accounts provided by hardhat to your metamask
+Public Key1`0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266` = Private Key1:`ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`, Public Key2`0x70997970C51812dc3A010C7d01b50e0d17dc79C8` = Private Key2:`59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d`
+
+In order to interact with zoboExchange Using Mumbai you must add these two fake accounts provided by hardhat to your metamask
+Public Key1`0xCC25B243088E302C5dEcb60D98f1Ed9A3b4ef53a` = Private Key1:`581d24bcb73d19019d78cd8bddbc89c362eb1dc22da667c0e9e0f07ae7af8284`, Public Key2`0xb5659fACf10dC21D5A90fa400e0D8b6C21F7F376` = Private Key2:`aed11ff7984e7c5b48004e5c675e0e98c72094b480345e6c9a53565b2319f656`
+
 ## Metamask Setup
- - Here is how to setup your testnets
+
+- Here is how to setup your testnets
 
 ### Polygon Mumbai Network Setup
 
@@ -213,9 +222,9 @@ On the `MUMBAI TESTNET`.
 
 ## Variables
 
-`feeAccount`: Stores the address where service fee is paid
+`ownerFeeAccount`: Stores the address where service fee is paid
 
-`feePercent`: Stores the fee percentage
+`pricePercent`: Stores the fee percentage
 
 `orderCount`: This variable stores the number of orders.
 
@@ -232,8 +241,6 @@ On the `MUMBAI TESTNET`.
 `cancelOrder`: Cancels existing orders.
 
 `fillOrder`: Fills orders and Charge Fees.
-
-`_trade`: Facilitates trade between token buyer and seller.
 
 ## Events
 

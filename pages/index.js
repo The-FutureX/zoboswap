@@ -35,8 +35,8 @@ const App = () => {
     const chainId = await getNetwork(provider, dispatch);
 
     const supportedNetwork = [
-      {id: 80001, name: "Mumbai Testnet"},
-      {id: 31337, name: "Localhost"}
+      { id: 80001, name: "Mumbai Testnet" },
+      { id: 31337, name: "Localhost" },
     ];
 
     // Reload page when network changes
@@ -50,7 +50,7 @@ const App = () => {
     });
 
     // Check if ChainId exists in the supported chain..
-    const found = supportedNetwork.some(obj => obj.id === chainId)
+    const found = supportedNetwork.some((obj) => obj.id === chainId);
     if (found) {
       // continue..
 
@@ -61,7 +61,11 @@ const App = () => {
 
       // Load exchange smart contract
       const exchangeConfig = config[chainId].exchange;
-      const exchange = await getExchange(provider, exchangeConfig.address, dispatch);
+      const exchange = await getExchange(
+        provider,
+        exchangeConfig.address,
+        dispatch
+      );
 
       // Fetch all orders: open, filled, cancelled
       await getAllOrders(provider, exchange, dispatch);
@@ -69,7 +73,7 @@ const App = () => {
       // Listen to events
       subscribeToEvents(exchange, dispatch);
     } else {
-      alert("Please Change to either Mumbai testnet or Localhost")
+      alert("Please Change to either Mumbai testnet or Localhost");
     }
   };
 
