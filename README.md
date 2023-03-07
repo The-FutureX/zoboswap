@@ -8,7 +8,7 @@ ZoboExchange is a decentralized exchange that operates on the Polygon blockchain
 
 # Snapshot
 
-![ZoboExchange](/screenshots/zoboswap.png)
+![ZoboExchange](/screenshots/zobo.mp4)
 
 # Link
 
@@ -101,7 +101,7 @@ npm run dev
 http://localhost:3000
 ```
 
-### In order to interact with zoboExchange LOCALLY you must add these two fake accounts provided by hardhat to your metamask
+### In order to interact with Zobo Exchange LOCALLY you must add these two fake accounts provided by hardhat to your metamask
 
 - Account #1: `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
 
@@ -111,7 +111,7 @@ http://localhost:3000
 
   Private Key:`59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d`
 
-### In order to interact with zoboExchange Using Mumbai you must add these two accounts provided by my admin
+### In order to interact with Zobo Exchange Using Mumbai you must add these two accounts provided by my admin
 
 - Account #1: `0xCC25B243088E302C5dEcb60D98f1Ed9A3b4ef53a`
 
