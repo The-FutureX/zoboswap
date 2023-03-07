@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 // NB: We followed the official ERC-20 standard token creation guides
 // References from:
 // https://eips.ethereum.org/EIPS/eip-20
+// https://ethereum.org/en/developers/docs/standards/tokens/erc-20/
 contract ZoboToken {
     // State Variables for token creation
     string public name;
