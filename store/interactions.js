@@ -2,14 +2,14 @@ import { ethers } from "ethers";
 import TOKEN_ABI from "../abis/Token.json";
 import EXCHANGE_ABI from "../abis/Exchange.json";
 
-export const loadProvider = (dispatch) => {
+export const getProvider = (dispatch) => {
   const connection = new ethers.providers.Web3Provider(window.ethereum);
   dispatch({ type: "PROVIDER_LOADED", connection });
 
   return connection;
 };
 
-export const loadNetwork = async (provider, dispatch) => {
+export const getNetwork = async (provider, dispatch) => {
   const { chainId } = await provider.getNetwork();
   dispatch({ type: "NETWORK_LOADED", chainId });
 
@@ -32,7 +32,7 @@ export const getAccount = async (provider, dispatch) => {
   return account;
 };
 
-export const loadTokens = async (provider, addresses, dispatch) => {
+export const getTokens = async (provider, addresses, dispatch) => {
   let token, symbol;
 
   token = new ethers.Contract(addresses[0], TOKEN_ABI, provider);
@@ -46,7 +46,7 @@ export const loadTokens = async (provider, addresses, dispatch) => {
   return token;
 };
 
-export const loadExchange = async (provider, address, dispatch) => {
+export const getExchange = async (provider, address, dispatch) => {
   const exchange = new ethers.Contract(address, EXCHANGE_ABI, provider);
   dispatch({ type: "EXCHANGE_LOADED", exchange });
 

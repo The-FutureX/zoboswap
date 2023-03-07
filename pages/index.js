@@ -16,10 +16,10 @@ import {
 import config from "../config.json";
 import {
   getAccount,
-  loadNetwork,
-  loadProvider,
-  loadTokens,
-  loadExchange,
+  getNetwork,
+  getProvider,
+  getTokens,
+  getExchange,
   getAllOrders,
   subscribeToEvents,
 } from "../store/interactions";
@@ -27,12 +27,12 @@ import {
 const App = () => {
   const dispatch = useDispatch();
 
-  const loadBlockchainData = async () => {
+  const getBlockchainData = async () => {
     // Connect Ethers to blockchain
-    const provider = loadProvider(dispatch);
+    const provider = getProvider(dispatch);
 
     // Fetch current network's chainId
-    const chainId = await loadNetwork(provider, dispatch);
+    const chainId = await getNetwork(provider, dispatch);
 
     // Reload page when network changes
     window.ethereum.on("chainChanged", () => {
@@ -47,11 +47,11 @@ const App = () => {
     // Load token smart contracts
     const ZoboToken = config[chainId].ZoboToken;
     const SiToken = config[chainId].SiToken;
-    await loadTokens(provider, [ZoboToken.address, SiToken.address], dispatch);
+    await getTokens(provider, [ZoboToken.address, SiToken.address], dispatch);
 
     // Load exchange smart contract
     const exchangeConfig = config[chainId].exchange;
-    const exchange = await loadExchange(
+    const exchange = await getExchange(
       provider,
       exchangeConfig.address,
       dispatch
@@ -65,7 +65,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    loadBlockchainData();
+    getBlockchainData();
   });
 
   return (
