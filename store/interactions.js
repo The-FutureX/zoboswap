@@ -16,7 +16,7 @@ export const loadNetwork = async (provider, dispatch) => {
   return chainId;
 };
 
-export const loadAccount = async (provider, dispatch) => {
+export const getAccount = async (provider, dispatch) => {
   const accounts = await window.ethereum.request({
     method: "eth_requestAccounts",
   });
@@ -141,7 +141,7 @@ export const loadBalances = async (exchange, tokens, account, dispatch) => {
 
 /*************************LOAD ALL ORDERS****************************/
 
-export const loadAllOrders = async (provider, exchange, dispatch) => {
+export const getAllOrders = async (provider, exchange, dispatch) => {
   const block = await provider.getBlockNumber();
 
   // Fetch canceled orders

@@ -10,7 +10,7 @@ import { defaultSeries, options } from "./PriceChart.config";
 
 import { priceChartSelector } from "../store/selectors";
 
-import Banner from "./Banner";
+import Board from "./Board";
 import Image from "next/image";
 
 const PriceChart = () => {
@@ -38,7 +38,7 @@ const PriceChart = () => {
       </div>
 
       {!account ? (
-        <Banner text={"Please connect with Metamask"} />
+        <Board text={"Please connect with Metamask"} />
       ) : (
         <Chart
           type="candlestick"

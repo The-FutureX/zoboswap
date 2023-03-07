@@ -1,8 +1,8 @@
 import Alert from "./Alert";
 import Balance from "./Balance";
-import Banner from "./Banner";
+import Board from "./Board";
 import Markets from "./Markets";
-import Navbar from "./Navbar";
+import TopNav from "./TopNav";
 import Order from "./Order";
 import OrderBook from "./OrderBook";
 import PriceChart from "./PriceChart";
@@ -12,9 +12,9 @@ import Transactions from "./Transactions";
 export {
   Alert,
   Balance,
-  Banner,
+  Board,
   Markets,
-  Navbar,
+  TopNav,
   Order,
   OrderBook,
   PriceChart,

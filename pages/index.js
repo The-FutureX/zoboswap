@@ -4,7 +4,7 @@ import {
   Alert,
   Balance,
   Markets,
-  Navbar,
+  TopNav,
   Order,
   OrderBook,
   PriceChart,
@@ -15,12 +15,12 @@ import {
 //Internal Import
 import config from "../config.json";
 import {
-  loadAccount,
+  getAccount,
   loadNetwork,
   loadProvider,
   loadTokens,
   loadExchange,
-  loadAllOrders,
+  getAllOrders,
   subscribeToEvents,
 } from "../store/interactions";
 
@@ -41,7 +41,7 @@ const App = () => {
 
     // Fetch current account & balance from Metamask when changed
     window.ethereum.on("accountsChanged", () => {
-      loadAccount(provider, dispatch);
+      getAccount(provider, dispatch);
     });
 
     // Load token smart contracts
@@ -58,7 +58,7 @@ const App = () => {
     );
 
     // Fetch all orders: open, filled, cancelled
-    loadAllOrders(provider, exchange, dispatch);
+    getAllOrders(provider, exchange, dispatch);
 
     // Listen to events
     subscribeToEvents(exchange, dispatch);
@@ -70,7 +70,7 @@ const App = () => {
 
   return (
     <div>
-      <Navbar />
+      <TopNav />
 
       <main className="exchange grid">
         <section className="exchange__section--left grid">

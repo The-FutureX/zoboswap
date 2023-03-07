@@ -6,7 +6,7 @@ import {
 } from "../store/selectors";
 import sort from "../public/assets/sort.svg";
 import { cancelOrder } from "../store/interactions";
-import Banner from "./Banner";
+import Board from "./Board";
 import Image from "next/image";
 
 const Transactions = () => {
@@ -61,7 +61,7 @@ const Transactions = () => {
           </div>
 
           {!myOpenOrders || myOpenOrders.length === 0 ? (
-            <Banner text="No Open Orders" />
+            <Board text="No Open Orders" />
           ) : (
             <table>
               <thead>

@@ -4,12 +4,12 @@ import Blockies from "react-blockies";
 import logo from "../public/assets/logo.png";
 import eth from "../public/assets/eth.svg";
 
-import { loadAccount } from "../store/interactions";
+import { getAccount } from "../store/interactions";
 
 import config from "../config.json";
 import Image from "next/image";
 
-const Navbar = () => {
+const TopNav = () => {
   const provider = useSelector((state) => state.provider.connection);
   const chainId = useSelector((state) => state.provider.chainId);
   const account = useSelector((state) => state.provider.account);
@@ -18,7 +18,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const connectHandler = async () => {
-    await loadAccount(provider, dispatch);
+    await getAccount(provider, dispatch);
   };
 
   const networkHandler = async (e) => {
@@ -96,4 +96,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default TopNav;
