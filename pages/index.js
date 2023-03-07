@@ -44,24 +44,33 @@ const App = () => {
       getAccount(provider, dispatch);
     });
 
-    // Load token smart contracts
-    const ZoboToken = config[chainId].ZoboToken;
-    const SiToken = config[chainId].SiToken;
-    await getTokens(provider, [ZoboToken.address, SiToken.address], dispatch);
+    // Check if ChainId exists in the supported chain..
+    const supportedNetwork = [
+      {id: 80001, name: "Mumbai Testnet"},
+      {id: 31337, name: "Localhost"}
+    ];
 
-    // Load exchange smart contract
-    const exchangeConfig = config[chainId].exchange;
-    const exchange = await getExchange(
-      provider,
-      exchangeConfig.address,
-      dispatch
-    );
+    const found = supportedNetwork.some(obj => obj.id === chainId)
+    if (found) {
+      // continue..
 
-    // Fetch all orders: open, filled, cancelled
-    getAllOrders(provider, exchange, dispatch);
+      // get token smart contracts
+      const ZoboToken = config[chainId] === undefined ? null : config[chainId].ZoboToken;
+      const SiToken = config[chainId] === undefined ? null : config[chainId].SiToken;
+      await getTokens(provider, [ZoboToken.address, SiToken.address], dispatch);
 
-    // Listen to events
-    subscribeToEvents(exchange, dispatch);
+      // Load exchange smart contract
+      const exchangeConfig = config[chainId].exchange;
+      const exchange = await getExchange(provider, exchangeConfig.address, dispatch);
+
+      // Fetch all orders: open, filled, cancelled
+      await getAllOrders(provider, exchange, dispatch);
+
+      // Listen to events
+      subscribeToEvents(exchange, dispatch);
+    } else {
+      alert("Please Change to either Mumbai testnet or Localhost")
+    }
   };
 
   useEffect(() => {

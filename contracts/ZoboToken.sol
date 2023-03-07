@@ -33,11 +33,7 @@ contract ZoboToken {
         _;
     }
 
-    function transfer(address _to, uint256 _value)
-        public
-        invalidAddress(_to)
-        returns (bool success)
-    {
+    function transfer(address _to, uint256 _value) public invalidAddress(_to) returns (bool success){
         require(
             balanceOf[msg.sender] >= _value, "Oops, Insufficient Token"
         );
@@ -55,11 +51,7 @@ contract ZoboToken {
         return true;
     }
 
-    function transferFrom(
-        address _from,
-        address _to,
-        uint256 _value
-    ) public returns (bool success) {
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
         require(
             balanceOf[_from] >= _value, "Oops, Insufficient Token to complete Transfer"
         );
