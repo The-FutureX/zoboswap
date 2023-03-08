@@ -32,7 +32,7 @@ const TopNav = () => {
     <div className="exchange__header grid">
       <div className="exchange__header--brand flex">
         <Image src={logo} className="logo" alt="DApp Logo" />
-        <h1 className="blue-clr">Zobo Swap Exchange</h1>
+        <h1 className="blue-clr">Zobo Token Exchange</h1>
       </div>
 
       <div className="exchange__header--networks flex">

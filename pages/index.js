@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -82,7 +83,11 @@ const App = () => {
   });
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>Zobo Token Exchange</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <TopNav />
 
       <main className="exchange grid">
@@ -105,7 +110,7 @@ const App = () => {
           <OrderBook />
         </section>
       </main>
-    </div>
+    </>
   );
 };
 
