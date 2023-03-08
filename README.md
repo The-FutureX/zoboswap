@@ -111,7 +111,7 @@ http://localhost:3000
 
   Private Key:`59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d`
 
-### In order to interact with Zobo Exchange Using Mumbai you must add these two accounts provided by my admin
+### In order to interact with Zobo Exchange Using Mumbai Network you must add these two accounts provided admin to your metamask
 
 - Account #1: `0xCC25B243088E302C5dEcb60D98f1Ed9A3b4ef53a`
 
