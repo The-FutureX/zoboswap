@@ -117,7 +117,7 @@ http://localhost:3000
 
   Private Key:`581d24bcb73d19019d78cd8bddbc89c362eb1dc22da667c0e9e0f07ae7af8284`,
 
-- Account #2: `0xb5659fACf10dC21D5A90fa400e0D8b6C21F7F376`,
+- Account #2: `0xb5659fACf10dC21D5A90fa400e0D8b6C21F7F376`
 
   Private Key:`aed11ff7984e7c5b48004e5c675e0e98c72094b480345e6c9a53565b2319f656`
 
