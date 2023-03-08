@@ -23,10 +23,18 @@ const TopNav = () => {
   };
 
   const networkHandler = async (e) => {
-    await window.ethereum.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: e.target.value }],
-    });
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: e.target.value }],
+      });
+    } catch (err) {
+      // The network has not been added to MetaMask
+      if (err.code === 4902) {
+        const local = false;
+        ensureNetwork(local);
+      }
+    }
   };
 
   return (

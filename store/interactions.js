@@ -9,12 +9,17 @@ export const getProvider = (dispatch) => {
   return connection;
 };
 
-export const ensureNetwork = async () => {
+export const ensureNetwork = async (local = true) => {
   const chainId = await window.ethereum.request({ method: "eth_chainId" });
-  if (
-    chainId !== `0x${(80001).toString(16)}` &&
-    chainId !== `0x${(31337).toString(16)}`
-  ) {
+  let condition;
+  if (local) {
+    condition =
+      chainId !== `0x${(80001).toString(16)}` &&
+      chainId !== `0x${(31337).toString(16)}`;
+  } else {
+    condition = chainId !== `0x${(80001).toString(16)}`;
+  }
+  if (condition) {
     try {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
