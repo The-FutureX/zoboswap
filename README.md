@@ -48,7 +48,7 @@ We were inspired by Dapp University. <br/>
 **Clone the repository**
 
 ```javascript
-https://github.com/The-FutureX/zoboswap.git
+git clone https://github.com/The-FutureX/zoboswap.git
 ```
 
 **cd into the Project Folder**
