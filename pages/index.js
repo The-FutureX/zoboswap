@@ -23,6 +23,7 @@ import {
   getExchange,
   getAllOrders,
   subscribeToEvents,
+  ensureNetwork,
 } from "../store/interactions";
 
 const App = () => {
@@ -74,7 +75,8 @@ const App = () => {
       // Listen to events
       subscribeToEvents(exchange, dispatch);
     } else {
-      alert("Please Change to either Mumbai testnet or Localhost");
+      // alert("Please Change to either Mumbai testnet or Localhost");
+      ensureNetwork();
     }
   };
 
