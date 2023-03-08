@@ -1,6 +1,6 @@
 # Title
 
-ZoboSwap DEX
+Zobo Decentralize Exchange App 
 
 # Description
 
