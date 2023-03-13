@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --clr-primary: #0d121d;
   --clr-secondary: #121a29;
@@ -118,8 +122,9 @@ small {
 /* ------------------------------------------------------ */
 
 .exchange__section--left {
-  background: var(--clr-secondary);
-  padding: 2em;
+  background: var(--clr-primary);
+
+  padding: 0.25em 0.75em 0;
 
   /* Grid Setup */
   grid-column-start: 1;
@@ -127,9 +132,8 @@ small {
 }
 
 .exchange__section--right {
-  background: var(--clr-primary);
-
-  padding: 0.25em 0.75em 0;
+  background: var(--clr-secondary);
+  padding: 2em;
 
   /* Grid Setup */
   grid-column-start: 1;
@@ -663,6 +667,18 @@ table td {
   .exchange__header--brand h1 {
     display: contents;
   }
+
+  .exchange__section--left {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  .exchange__section--right {
+    padding: 1.25em 2em 1em;
+
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -759,15 +775,19 @@ table td {
   }
 
   .exchange__section--left {
-    padding: 0.25em 2em 0;
-
     grid-column-start: 1;
-    grid-column-end: 5;
+    grid-column-end: 9;
+
+    grid-row-start: 1;
   }
 
   .exchange__section--right {
-    grid-column-start: 5;
+    padding: 1.25em 2em 1em;
+
+    grid-column-start: 9;
     grid-column-end: 13;
+
+    grid-row-start: 1;
   }
 
   .exchange__markets,
@@ -796,11 +816,11 @@ table td {
 @media screen and (min-width: 1600px) {
   .exchange__section--left {
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 10;
   }
 
   .exchange__section--right {
-    grid-column-start: 4;
+    grid-column-start: 10;
     grid-column-end: 13;
   }
 

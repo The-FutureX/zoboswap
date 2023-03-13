@@ -90,17 +90,8 @@ const App = () => {
       </Head>
       <TopNav />
 
-      <main className="exchange grid">
+      <main className="exchange grid">      
         <section className="exchange__section--left grid">
-          <Alert />
-
-          <Markets />
-
-          <Balance />
-
-          <Order />
-        </section>
-        <section className="exchange__section--right grid">
           <PriceChart />
 
           <Transactions />
@@ -108,6 +99,15 @@ const App = () => {
           <Trades />
 
           <OrderBook />
+        </section>
+        <section className="exchange__section--right grid">
+          <Alert />
+
+          <Markets />
+
+          <Balance />
+
+          <Order />
         </section>
       </main>
     </>
