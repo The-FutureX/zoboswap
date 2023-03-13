@@ -18,6 +18,18 @@ Github Link: https://github.com/The-FutureX/zoboswap
 
 Production Link: https://zoboexchange.vercel.app/
 
+## If you are using the live link to test the project  
+
+### In order to interact with Zobo Exchange Using Mumbai Network you must add these two accounts provided admin to your metamask
+
+- Account #1: `0xCC25B243088E302C5dEcb60D98f1Ed9A3b4ef53a`
+
+  Private Key:`581d24bcb73d19019d78cd8bddbc89c362eb1dc22da667c0e9e0f07ae7af8284`,
+
+- Account #2: `0xb5659fACf10dC21D5A90fa400e0D8b6C21F7F376`
+
+  Private Key:`aed11ff7984e7c5b48004e5c675e0e98c72094b480345e6c9a53565b2319f656`
+
 # Authors
 
 Abiye Chris. I. Surulere
@@ -110,16 +122,6 @@ http://localhost:3000
 - Account #2: `0x70997970C51812dc3A010C7d01b50e0d17dc79C8`,
 
   Private Key:`59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d`
-
-### In order to interact with Zobo Exchange Using Mumbai Network you must add these two accounts provided admin to your metamask
-
-- Account #1: `0xCC25B243088E302C5dEcb60D98f1Ed9A3b4ef53a`
-
-  Private Key:`581d24bcb73d19019d78cd8bddbc89c362eb1dc22da667c0e9e0f07ae7af8284`,
-
-- Account #2: `0xb5659fACf10dC21D5A90fa400e0D8b6C21F7F376`
-
-  Private Key:`aed11ff7984e7c5b48004e5c675e0e98c72094b480345e6c9a53565b2319f656`
 
 ## Metamask Setup
 
