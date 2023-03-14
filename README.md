@@ -20,7 +20,7 @@ Production Link: https://zoboexchange.vercel.app/
 
 ## If you are using the live link to test the project  
 
-### In order to interact with Zobo Exchange Using Mumbai Network you must add these two accounts provided admin to your metamask
+#### In order to interact with Zobo Exchange Using Mumbai Network you must add these two accounts provided by admin to your metamask
 
 - Account #1: `0xCC25B243088E302C5dEcb60D98f1Ed9A3b4ef53a`
 
