@@ -4,7 +4,7 @@ import Blockies from "react-blockies";
 import logo from "../public/assets/logo.png";
 import eth from "../public/assets/eth.svg";
 
-import { getAccount } from "../store/interactions";
+import { getAccount, ensureNetwork } from "../store/interactions";
 
 import config from "../config.json";
 import Image from "next/image";
@@ -19,13 +19,22 @@ const TopNav = () => {
 
   const connectHandler = async () => {
     await getAccount(provider, dispatch);
+    ensureNetwork();
   };
 
   const networkHandler = async (e) => {
-    await window.ethereum.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: e.target.value }],
-    });
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: e.target.value }],
+      });
+    } catch (err) {
+      // The network has not been added to MetaMask
+      if (err.code === 4902) {
+        const local = false;
+        ensureNetwork(local);
+      }
+    }
   };
 
   return (

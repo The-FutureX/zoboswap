@@ -9,6 +9,54 @@ export const getProvider = (dispatch) => {
   return connection;
 };
 
+export const ensureNetwork = async (local = true) => {
+  const chainId = await window.ethereum.request({ method: "eth_chainId" });
+  let condition;
+  if (local) {
+    condition =
+      chainId !== `0x${(80001).toString(16)}` &&
+      chainId !== `0x${(31337).toString(16)}`;
+  } else {
+    condition = chainId !== `0x${(80001).toString(16)}`;
+  }
+  if (condition) {
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x13881" }],
+      });
+      console.log("You have switched to the right network");
+    } catch (switchError) {
+      console.log(switchError);
+      // The network has not been added to MetaMask
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: "0x13881",
+                chainName: "Mumbai Testnet",
+                rpcUrls: [
+                  "https://polygon-mumbai.g.alchemy.com/v2/KBuX4MEvHnuxz1qVl9Rd-QKqEl0WUVWW",
+                ],
+                blockExplorerUrls: ["https://polygonscan.com/"],
+                nativeCurrency: {
+                  symbol: "MATIC",
+                  decimals: 18,
+                },
+              },
+            ],
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      console.log("Cannot switch to the network");
+    }
+  }
+};
+
 export const getNetwork = async (provider, dispatch) => {
   const { chainId } = await provider.getNetwork();
   dispatch({ type: "NETWORK_LOADED", chainId });
